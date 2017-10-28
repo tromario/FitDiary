@@ -3,6 +3,7 @@ import Product from './Product'
 import AddProduct from './AddProduct'
 import SearchPlugin from '../../utils/SearchPlugin'
 
+// Переименовать в ProductList
 export default class Products extends React.Component {
   constructor(props) {
     super(props);

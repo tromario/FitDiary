@@ -74,8 +74,11 @@ const productSchema = new Schema({
 
 // схема категории продукта: (молочное/злаковое/бобовое)
 var categorySchema = new Schema({
-  _id: { type: Schema.Types.ObjectId, require: true },
+  // _id: { type: Schema.Types.ObjectId, require: true },
   name: { type: String, require: true }
+},
+{
+  versionKey: false
 })
 
 const Product = mongoose.model('Product', productSchema)
@@ -84,15 +87,6 @@ const Category = mongoose.model('Category', categorySchema)
 app.get('/api/products', function(req, res) {
   mongoose.connect(url)
   Product.find({}, function(err, docs) {
-    mongoose.disconnect()
-    if (err) return res.status(400).send()
-    res.json(docs)
-  })
-})
-
-app.get('/api/categories', function(req, res) {
-  mongoose.connect(url)
-  Category.find({}, function(err, docs) {
     mongoose.disconnect()
     if (err) return res.status(400).send()
     res.json(docs)
@@ -109,6 +103,35 @@ app.post('/api/products', function(req, res) {
 
   mongoose.connect(url)
   product.save()
+    .then(function(doc) {
+      mongoose.disconnect()
+      res.json(doc)
+    })
+    .catch(function(err) {
+      mongoose.disconnect()
+      res.status(400).send()
+    })
+})
+
+app.get('/api/categories', function(req, res) {
+  mongoose.connect(url)
+  Category.find({}, function(err, docs) {
+    mongoose.disconnect()
+    if (err) return res.status(400).send()
+    res.json(docs)
+  })
+})
+
+app.post('/api/categories', function(req, res) {
+  if (!req.body) return res.status(404).send()
+
+  var categoryData = req.body.data
+  var category = new Category(categoryData)
+
+  console.log(categoryData)
+
+  mongoose.connect(url)
+  category.save()
     .then(function(doc) {
       mongoose.disconnect()
       res.json(doc)
