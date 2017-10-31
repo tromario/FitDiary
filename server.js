@@ -37,12 +37,13 @@ mongoose.Promise = global.Promise
 const url = 'mongodb://localhost:27017/diary'
 // const jsonParser = bodyParser.json()
 
+// todo: вынести в model
 const productSchema = new Schema({
   //_id: { type: Schema.Types.ObjectId, require: false },
   // наименование
   name: { type: String, require: true },
   // // категория
-  // category: { type: Schema.Types.ObjectId, ref: 'Category', require: true },
+  category: { type: Schema.Types.ObjectId, ref: 'Category', require: true },
   // // производитель
   // manufacturer: { type: String, require: true },
   // // белки
@@ -86,7 +87,7 @@ const Category = mongoose.model('Category', categorySchema)
 
 app.get('/api/products', function(req, res) {
   mongoose.connect(url)
-  Product.find({}, function(err, docs) {
+  Product.find().populate('category').exec(function(err, docs) {
     mongoose.disconnect()
     if (err) return res.status(400).send()
     res.json(docs)
@@ -102,15 +103,20 @@ app.post('/api/products', function(req, res) {
   console.log(productData)
 
   mongoose.connect(url)
-  product.save()
-    .then(function(doc) {
-      mongoose.disconnect()
-      res.json(doc)
-    })
-    .catch(function(err) {
+  product.save(function(error) {
+    if (!error) {
+      Product
+        .findById(product._id)
+        .populate('category')
+        .exec(function(error, doc) {
+          mongoose.disconnect()
+          res.json(doc)
+        })
+    } else {
       mongoose.disconnect()
       res.status(400).send()
-    })
+    }
+  })
 })
 
 app.get('/api/categories', function(req, res) {

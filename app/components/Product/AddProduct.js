@@ -43,6 +43,8 @@ export default class NewProduct extends React.Component {
   }
 
   render() {
+    const { categories } = this.props
+
     return(
       <div>
         <h3>Добавление нового продукта</h3>
@@ -55,8 +57,13 @@ export default class NewProduct extends React.Component {
           <br />
           <label htmlFor="category">Категория:</label>
           <select name="category" onChange={this.handleCategoryChange}>
-            <option value="0">Молочное</option>
-            <option value="1">Крупы</option>
+            {
+              categories.map(function(item, index) {
+                return(
+                  <option key={index} value={item._id}>{item.name}</option>
+                )
+              })
+            }
           </select>
           <br />
           <input type="submit" value="Сохранить" />
