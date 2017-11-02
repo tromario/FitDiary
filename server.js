@@ -148,6 +148,33 @@ app.post('/api/categories', function(req, res) {
     })
 })
 
+app.delete('/api/categories/:id', function(req, res) {
+  var id = req.params.id
+
+  console.log(req.params)
+
+  mongoose.connect(url)
+  Category.findByIdAndRemove(id, function(err, doc) {
+    mongoose.disconnect()
+    if (err) return res.status(400).send()
+    res.json(doc)
+  })
+})
+
+// app.delete('/api/categories', function(req, res) {
+//   var id = req.query.id
+//
+//   console.log(req.query)
+//   console.log(req.params)
+//
+//   mongoose.connect(url)
+//   Category.findByIdAndRemove(id, function(err, doc) {
+//     mongoose.disconnect()
+//     if (err) return res.status(400).send()
+//     res.json(doc)
+//   })
+// })
+
 /* api ] */
 
 const server = http.createServer(app);

@@ -4,6 +4,9 @@ import {
 
   ADD_CATEGORY_REQUEST,
   ADD_CATEGORY_SUCCESS,
+
+  DELETE_CATEGORY_REQUEST,
+  DELETE_CATEGORY_SUCCESS
 } from '../constants/Category'
 
 const initialState = {
@@ -21,6 +24,12 @@ export default function category(state = initialState, action) {
           ...state.categories,
           action.payload
         ]
+      }
+
+    case DELETE_CATEGORY_SUCCESS:
+      return {
+        ...state,
+        categories: state.categories.filter(category => category._id !== action.payload._id)
       }
 
     default:

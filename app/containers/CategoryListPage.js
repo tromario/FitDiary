@@ -8,13 +8,14 @@ import CategoryList from '../components/Category/CategoryList'
 class CategoryListPage extends Component {
   render() {
     const { categories } = this.props.category
-    const { getCategories, addCategory } = this.props.categoryActions
+    const { getCategories, addCategory, deleteCategory } = this.props.categoryActions
 
     return(
       <CategoryList
         items={categories}
         getCategories={getCategories}
         addCategory={addCategory}
+        deleteCategory={deleteCategory}
       />
     )
   }

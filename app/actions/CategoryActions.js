@@ -4,6 +4,9 @@ import {
 
   ADD_CATEGORY_REQUEST,
   ADD_CATEGORY_SUCCESS,
+
+  DELETE_CATEGORY_REQUEST,
+  DELETE_CATEGORY_SUCCESS
 } from '../constants/Category'
 
 import axios from 'axios'
@@ -36,5 +39,27 @@ export function addCategory(category) {
       type: ADD_CATEGORY_SUCCESS,
       payload: category.data
     }))
+  }
+}
+
+export function deleteCategory(id) {
+  return (dispatch) => {
+    dispatch({
+      type: DELETE_CATEGORY_REQUEST
+    })
+
+    axios.delete('/api/categories/' + id)
+    .then(response => dispatch({
+      type: DELETE_CATEGORY_SUCCESS,
+      payload: response.data
+    }))
+
+    // axios.delete('/api/categories', {
+    //   params: { id: id }
+    // })
+    // .then(response => dispatch({
+    //   type: DELETE_CATEGORY_SUCCESS,
+    //   payload: response.data
+    // }))
   }
 }

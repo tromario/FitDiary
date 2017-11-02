@@ -8,14 +8,14 @@ export default class CategoryList extends Component {
   }
 
   render() {
-    const { items, addCategory } = this.props
+    const { items, addCategory, deleteCategory } = this.props
 
     let tableTemplate = items.map(function(item, index) {
       return(
         <tr key={index}>
           <td>{item.name}</td>
           <td><a href="#">Изменить</a></td>
-          <td><a href="#">Удалить</a></td>
+          <td><a href="#" onClick={()=>deleteCategory(item._id)}>Удалить</a></td>
         </tr>
       )
     })
