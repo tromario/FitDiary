@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { NavLink } from 'react-router-dom'
 
 import AddCategory from './AddCategory'
 
@@ -8,13 +9,15 @@ export default class CategoryList extends Component {
   }
 
   render() {
-    const { items, addCategory, deleteCategory } = this.props
+    const { items, addCategory, deleteCategory, updateCategory } = this.props
+
+    // updateCategory(data)
 
     let tableTemplate = items.map(function(item, index) {
       return(
         <tr key={index}>
           <td>{item.name}</td>
-          <td><a href="#">Изменить</a></td>
+          <td><NavLink to={`/categories/${item._id}`}>Изменить</NavLink></td>
           <td><a href="#" onClick={()=>deleteCategory(item._id)}>Удалить</a></td>
         </tr>
       )

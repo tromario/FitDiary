@@ -8,13 +8,16 @@ import CategoryListPage from './CategoryListPage'
 import Meals from '../components/Meals'
 import Profile from '../components/Profile'
 
+import CategoryPage from './CategoryPage'
+
 export default class RouteList extends Component {
   render() {
     return (
       <div>
         <Route exact path="/" component={Home} />
         <Route path="/products" component={ProductListPage} />
-        <Route path="/categories" component={CategoryListPage} />
+        <Route exact path="/categories" component={CategoryListPage} />
+        <Route path="/categories/:id" component={CategoryPage} />
         <Route path="/meals" component={Meals} />
         <Route path="/profile" component={Profile} />
       </div>

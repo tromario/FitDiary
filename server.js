@@ -128,6 +128,17 @@ app.get('/api/categories', function(req, res) {
   })
 })
 
+app.get('/api/categories/:id', function(req, res) {
+  var categoryId = req.params.id
+
+  mongoose.connect(url)
+  Category.findById(categoryId, function(err, category) {
+    mongoose.disconnect()
+    if (err) return res.status(400).send()
+    res.json(category)
+  })
+})
+
 app.post('/api/categories', function(req, res) {
   if (!req.body) return res.status(404).send()
 
@@ -174,6 +185,28 @@ app.delete('/api/categories/:id', function(req, res) {
 //     res.json(doc)
 //   })
 // })
+
+app.put('/api/categories/:id', function(req, res) {
+  if (!req.params) return res.status(404).send()
+
+  var categoryId = req.params.id
+  var categoryData = req.body.data
+
+  mongoose.connect(url)
+
+  Category.findById(categoryId, function(err, category) {
+    category.name = categoryData.name
+    category.save()
+      .then(function(category) {
+        mongoose.disconnect()
+        res.json(category)
+      })
+      .catch(function(err) {
+        mongoose.disconnect()
+        res.status(400).send()
+      })
+  })
+})
 
 /* api ] */
 
