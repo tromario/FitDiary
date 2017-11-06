@@ -1,27 +1,36 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Product from './Product'
 import AddProduct from './AddProduct'
 import SearchPlugin from '../../utils/SearchPlugin'
 
-// Переименовать в ProductList
-export default class Products extends React.Component {
+export default class ProductList extends Component {
   constructor(props) {
     super(props);
 
     this.filterList = this.filterList.bind(this);
   }
 
+  componentDidMount() {
+    const { getProducts } = this.props.productActions
+    const { getCategories } = this.props.categoryActions
+
+    getProducts()
+    getCategories()
+  }
+
   filterList(text) {
-    let filteredList = this.props.items.filter(function(item) {
+    let filteredList = this.props.products.filter(function(item) {
       return item.name.toLowerCase().search(text.toLowerCase()) !== -1
     });
-    this.setState({items: filteredList});
+    this.setState({products: filteredList});
   }
 
   render() {
-    const { items, categories, addProduct, deleteProduct } = this.props
+    const { addProduct, deleteProduct } = this.props.productActions
+    const { products } = this.props.product
+    const { categories } = this.props.category
 
-    let tableTemplate = items.map(function(item, index) {
+    let tableTemplate = products.map(function(item, index) {
       return (
         <tr key={index}>
           <td>{item.name}</td>

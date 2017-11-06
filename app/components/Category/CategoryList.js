@@ -5,20 +5,21 @@ import AddCategory from './AddCategory'
 
 export default class CategoryList extends Component {
   componentWillMount() {
-    this.props.getCategories()
+    const { getCategories } = this.props.categoryActions
+
+    getCategories()
   }
 
   render() {
-    const { items, addCategory, deleteCategory, updateCategory } = this.props
+    const { categories } = this.props.category
+    const { getCategories, addCategory, deleteCategory, updateCategory } = this.props.categoryActions
 
-    // updateCategory(data)
-
-    let tableTemplate = items.map(function(item, index) {
+    let tableTemplate = categories.map(function(category, index) {
       return(
         <tr key={index}>
-          <td>{item.name}</td>
-          <td><NavLink to={`/categories/${item._id}`}>Изменить</NavLink></td>
-          <td><a href="#" onClick={()=>deleteCategory(item._id)}>Удалить</a></td>
+          <td>{category.name}</td>
+          <td><NavLink to={`/categories/${category._id}`}>Изменить</NavLink></td>
+          <td><a href="#" onClick={()=>deleteCategory(category._id)}>Удалить</a></td>
         </tr>
       )
     })

@@ -3,12 +3,12 @@ import { render } from 'react-dom'
 import { BrowserRouter, Router, Route } from 'react-router-dom'
 
 import Home from '../components/Home'
-import ProductListPage from './ProductListPage'
-import CategoryListPage from './CategoryListPage'
+import ProductListPage from './product/ProductListPage'
+import CategoryListPage from './category/CategoryListPage'
 import Meals from '../components/Meals'
 import Profile from '../components/Profile'
 
-import CategoryPage from './CategoryPage'
+import CategoryPage from './category/CategoryPage'
 
 export default class RouteList extends Component {
   render() {

@@ -12,13 +12,16 @@ export default class Category extends Component {
   }
 
   componentWillMount() {
-    const { id, getCategory } = this.props
+    const { id } = this.props.match.params
+    const { category } = this.props.category
+    const { getCategory } = this.props.categoryActions
 
     getCategory(id, this.setParametersAfterQueryExecuted)
   }
 
   setParametersAfterQueryExecuted = () => {
-    const { category } = this.props
+    const { category } = this.props.category
+
     this.setState({name: category.name})
   }
 
@@ -31,7 +34,8 @@ export default class Category extends Component {
     // todo: после обновления сделать редирект на список категорий
     event.preventDefault()
 
-    const { id, updateCategory } = this.props
+    const { id } = this.props.match.params
+    const { updateCategory } = this.props.categoryActions
 
     var data = {
       id: id,
