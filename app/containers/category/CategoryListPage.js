@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as CategoryActions from '../../actions/CategoryActions'
 
-import CategoryList from '../../components/Category/CategoryList'
+import CategoryList from '../../components/category/CategoryList'
 
 
 function mapStateToProps(state) {

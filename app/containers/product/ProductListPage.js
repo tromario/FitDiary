@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import * as ProductActions from '../../actions/ProductActions'
 import * as CategoryActions from '../../actions/CategoryActions'
 
-import ProductList from '../../components/Product/ProductList'
+import ProductList from '../../components/product/ProductList'
 
 
 function mapStateToProps(state) {

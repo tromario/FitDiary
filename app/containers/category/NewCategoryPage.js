@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as CategoryActions from '../../actions/CategoryActions'
 
-import Category from '../../components/category/Category'
+import NewCategory from '../../components/category/NewCategory'
 
 
 function mapStateToProps(state) {
@@ -18,4 +18,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Category)
+export default connect(mapStateToProps, mapDispatchToProps)(NewCategory)

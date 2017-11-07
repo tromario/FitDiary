@@ -5,8 +5,8 @@ import {
   GET_CATEGORY_REQUEST,
   GET_CATEGORY_SUCCESS,
 
-  ADD_CATEGORY_REQUEST,
-  ADD_CATEGORY_SUCCESS,
+  CREATE_CATEGORY_REQUEST,
+  CREATE_CATEGORY_SUCCESS,
 
   DELETE_CATEGORY_REQUEST,
   DELETE_CATEGORY_SUCCESS,
@@ -49,17 +49,17 @@ export function getCategory(id, callback) {
   }
 }
 
-export function addCategory(category) {
+export function createCategory(category) {
   return (dispatch) => {
     dispatch({
-      type: ADD_CATEGORY_REQUEST
+      type: CREATE_CATEGORY_REQUEST
     })
 
     axios.post('/api/categories', {
       data: category
     })
     .then(category => dispatch({
-      type: ADD_CATEGORY_SUCCESS,
+      type: CREATE_CATEGORY_SUCCESS,
       payload: category.data
     }))
   }

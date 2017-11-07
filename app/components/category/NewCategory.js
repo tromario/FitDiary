@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class AddCategory extends Component {
+export default class NewCategory extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -23,7 +23,7 @@ export default class AddCategory extends Component {
       name: this.state.name
     }
 
-    this.props.addCategory(data)
+    this.props.categoryActions.createCategory(data)
   }
 
   render() {

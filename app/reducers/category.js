@@ -5,8 +5,8 @@ import {
   GET_CATEGORY_REQUEST,
   GET_CATEGORY_SUCCESS,
 
-  ADD_CATEGORY_REQUEST,
-  ADD_CATEGORY_SUCCESS,
+  CREATE_CATEGORY_REQUEST,
+  CREATE_CATEGORY_SUCCESS,
 
   DELETE_CATEGORY_REQUEST,
   DELETE_CATEGORY_SUCCESS,
@@ -28,7 +28,7 @@ export default function category(state = initialState, action) {
     case GET_CATEGORY_SUCCESS:
       return { ...state, category: action.payload}
 
-    case ADD_CATEGORY_SUCCESS:
+    case CREATE_CATEGORY_REQUEST:
       return {
         categories: [
           ...state.categories,
