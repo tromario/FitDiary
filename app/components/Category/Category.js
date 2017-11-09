@@ -4,11 +4,9 @@ export default class Category extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      isEditing: false,
       name: ''
     }
-
-    this.handleNameChange = this.handleNameChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentWillMount() {
@@ -45,16 +43,38 @@ export default class Category extends Component {
     updateCategory(data)
   }
 
+  handleToggleEditClick = () => {
+    this.setState({isEditing: true})
+  }
+
+  handleDeleteClick = () => {
+    const { id } = this.props.match.params
+    const { deleteCategory } = this.props.categoryActions
+
+    deleteCategory(id)
+  }
+
   render() {
+    if (this.state.isEditing) {
+      return(
+        <div>
+          <form action="#" method="post" onSubmit={this.handleSubmit}>
+            <label htmlFor="name">Наименование:</label>
+            <input type="text" name="name" id="name" value={this.state.name} onChange={this.handleNameChange} />
+            <br />
+            <input type="submit" value="Сохранить" />
+          </form>
+        </div>
+      )
+    }
+
     return(
       <div>
-        <h3>Изменение категории</h3>
-        <form action="#" method="post" onSubmit={this.handleSubmit}>
-          <label htmlFor="name">Наименование:</label>
-          <input type="text" name="name" id="name" value={this.state.name} onChange={this.handleNameChange} />
-          <br />
-          <input type="submit" value="Сохранить" />
-        </form>
+        <h3>Просмотр категории</h3>
+        <p>Наименование: {this.state.name}</p>
+
+        <button onClick={this.handleToggleEditClick}>Изменить</button>{' '}
+        <button onClick={this.handleDeleteClick}>Удалить</button>
       </div>
     )
   }

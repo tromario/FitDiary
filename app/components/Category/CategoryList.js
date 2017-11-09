@@ -16,6 +16,7 @@ export default class CategoryList extends Component {
       return(
         <tr key={index}>
           <td>{category.name}</td>
+          <td><NavLink to={`/categories/${category._id}`}>Подробнее</NavLink></td>
           <td><NavLink to={`/categories/${category._id}`}>Изменить</NavLink></td>
           <td><a href="#" onClick={()=>deleteCategory(category._id)}>Удалить</a></td>
         </tr>
@@ -31,7 +32,7 @@ export default class CategoryList extends Component {
           <tbody>
             <tr>
               <th>Наименование</th>
-              <th colSpan="2">Действия</th>
+              <th colSpan="3">Действия</th>
             </tr>
             {tableTemplate}
           </tbody>
