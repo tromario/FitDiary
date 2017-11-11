@@ -1,12 +1,16 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as CategoryActions from '../../actions/CategoryActions'
 
 class CategoryPage extends Component {
-  constructor(props) {
-    super(props)
+  static contextTypes = {
+    router: PropTypes.object.isRequired
+  }
+
+  constructor(props, context) {
+    super(props, context)
     this.state = {
       isEditing: false,
       name: ''
@@ -33,11 +37,11 @@ class CategoryPage extends Component {
   }
 
   handleSubmit = event => {
-    // todo: после обновления сделать редирект на список категорий
     event.preventDefault()
 
     const { id } = this.props.match.params
     const { updateCategory } = this.props.categoryActions
+    const { history } = this.context.router
 
     var data = {
       id: id,
@@ -45,6 +49,9 @@ class CategoryPage extends Component {
     }
 
     updateCategory(data)
+
+    // todo: подумать, как сделать редирект через dispatch
+    history.push('/categories')
   }
 
   handleToggleEditClick = () => {

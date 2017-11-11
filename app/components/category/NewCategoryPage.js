@@ -1,10 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as CategoryActions from '../../actions/CategoryActions'
 
 class NewCategoryPage extends Component {
+  static contextTypes = {
+    router: PropTypes.object.isRequired
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -23,11 +27,17 @@ class NewCategoryPage extends Component {
   handleSubmit = event => {
     event.preventDefault()
 
+    const { createCategory } = this.props.categoryActions
+    const { history } = this.context.router
+
     let data = {
       name: this.state.name
     }
 
-    this.props.categoryActions.createCategory(data)
+    createCategory(data)
+
+    // todo: подумать, как сделать редирект через dispatch
+    history.push('/categories')
   }
 
   render() {
