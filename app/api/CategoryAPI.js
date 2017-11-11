@@ -1,10 +1,17 @@
 import axios from 'axios'
 
+// todo: добавить версию API
 export default class CategoryAPI {
   static createCategory(category) {
-    return axios.post('/api/categories', {
-      data: category
-    }).then(response => {
+    var request = {
+      method: 'post',
+      url: '/api/categories',
+      data: {
+        data: category
+      }
+    }
+
+    return axios(request).then(response => {
       return response.data
     }).catch(error => {
       return error
@@ -12,7 +19,12 @@ export default class CategoryAPI {
   }
 
   static getCategories() {
-    return axios.get('/api/categories').then(response => {
+    var request = {
+      method: 'get',
+      url: '/api/categories'
+    }
+
+    return axios(request).then(response => {
       return response.data
     }).catch(error => {
       return error
@@ -20,7 +32,12 @@ export default class CategoryAPI {
   }
 
   static getCategory(id) {
-    return axios.get('/api/categories/' + id).then(response => {
+    var request = {
+      method: 'get',
+      url: '/api/categories/' + id
+    }
+
+    return axios(request).then(response => {
       return response.data
     }).catch(error => {
       return error
@@ -28,9 +45,15 @@ export default class CategoryAPI {
   }
 
   static updateCategory(category) {
-    return axios.put('/api/categories/' + category.id, {
-      data: category
-    }).then(response => {
+    var request = {
+      method: 'put',
+      url: '/api/categories/' + category.id,
+      data: {
+        data: category
+      }
+    }
+
+    return axios(request).then(response => {
       return response.data
     }).catch(error => {
       return error
@@ -38,7 +61,12 @@ export default class CategoryAPI {
   }
 
   static deleteCategory(id) {
-    return axios.delete('/api/categories/' + id).then(response => {
+    var request = {
+      method: 'delete',
+      url: '/api/categories/' + id
+    }
+
+    return axios(request).then(response => {
       return response.data
     }).catch(error => {
       return error

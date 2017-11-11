@@ -1,83 +1,67 @@
-import {
-  CREATE_CATEGORY_REQUEST,
-  CREATE_CATEGORY_SUCCESS,
-
-  GET_CATEGORIES_REQUEST,
-  GET_CATEGORIES_SUCCESS,
-
-  GET_CATEGORY_REQUEST,
-  GET_CATEGORY_SUCCESS,
-
-  UPDATE_CATEGORY_REQUEST,
-  UPDATE_CATEGORY_SUCCESS,
-
-  DELETE_CATEGORY_REQUEST,
-  DELETE_CATEGORY_SUCCESS
-} from '../constants/Category'
-
+import * as types from '../constants/Category'
 import CategoryAPI from '../api/CategoryAPI'
 
 function createCategoryRequest() {
   return {
-    type: CREATE_CATEGORY_REQUEST
+    type: types.CREATE_CATEGORY_REQUEST
   }
 }
 
 function createCategorySuccess(category) {
   return {
-    type: CREATE_CATEGORY_SUCCESS,
+    type: types.CREATE_CATEGORY_SUCCESS,
     payload: category
   }
 }
 
 function getCategoriesRequest() {
   return {
-    type: GET_CATEGORIES_REQUEST
+    type: types.GET_CATEGORIES_REQUEST
   }
 }
 
 function getCategoriesSuccess(categories) {
   return {
-    type: GET_CATEGORIES_SUCCESS,
+    type: types.GET_CATEGORIES_SUCCESS,
     payload: categories
   }
 }
 
 function getCategoryRequest() {
   return {
-    type: GET_CATEGORY_REQUEST
+    type: types.GET_CATEGORY_REQUEST
   }
 }
 
 function getCategorySuccess(category) {
   return {
-    type: GET_CATEGORY_SUCCESS,
+    type: types.GET_CATEGORY_SUCCESS,
     payload: category
   }
 }
 
 function updateCategoryRequest() {
   return {
-    type: UPDATE_CATEGORY_REQUEST
+    type: types.UPDATE_CATEGORY_REQUEST
   }
 }
 
 function updateCategorySuccess(category) {
   return {
-    type: UPDATE_CATEGORY_SUCCESS,
+    type: types.UPDATE_CATEGORY_SUCCESS,
     payload: category
   }
 }
 
 function deleteCategoryRequest() {
   return {
-    type: DELETE_CATEGORY_REQUEST
+    type: types.DELETE_CATEGORY_REQUEST
   }
 }
 
 function deleteCategorySuccess(category) {
   return {
-    type: DELETE_CATEGORY_SUCCESS,
+    type: types.DELETE_CATEGORY_SUCCESS,
     payload: category
   }
 }

@@ -1,19 +1,4 @@
-import {
-  CREATE_CATEGORY_REQUEST,
-  CREATE_CATEGORY_SUCCESS,
-
-  GET_CATEGORIES_REQUEST,
-  GET_CATEGORIES_SUCCESS,
-
-  GET_CATEGORY_REQUEST,
-  GET_CATEGORY_SUCCESS,
-
-  UPDATE_CATEGORY_REQUEST,
-  UPDATE_CATEGORY_SUCCESS,
-
-  DELETE_CATEGORY_REQUEST,
-  DELETE_CATEGORY_SUCCESS
-} from '../constants/Category'
+import * as types from '../constants/Category'
 
 const initialState = {
   categories: [],
@@ -22,7 +7,7 @@ const initialState = {
 
 export default function category(state = initialState, action) {
   switch (action.type) {
-    case CREATE_CATEGORY_REQUEST:
+    case types.CREATE_CATEGORY_REQUEST:
       return {
         categories: [
           ...state.categories,
@@ -30,13 +15,13 @@ export default function category(state = initialState, action) {
         ]
       }
 
-    case GET_CATEGORIES_SUCCESS:
+    case types.GET_CATEGORIES_SUCCESS:
       return { ...state, categories: action.payload }
 
-    case GET_CATEGORY_SUCCESS:
+    case types.GET_CATEGORY_SUCCESS:
       return { ...state, category: action.payload}
 
-    case UPDATE_CATEGORY_SUCCESS:
+    case types.UPDATE_CATEGORY_SUCCESS:
       return {
         ...state,
         categories: state.categories.map(category => {
@@ -45,7 +30,7 @@ export default function category(state = initialState, action) {
         })
       }
 
-    case DELETE_CATEGORY_SUCCESS:
+    case types.DELETE_CATEGORY_SUCCESS:
       return {
         ...state,
         categories: state.categories.filter(category => category._id !== action.payload._id)
