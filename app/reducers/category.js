@@ -1,18 +1,18 @@
 import {
+  CREATE_CATEGORY_REQUEST,
+  CREATE_CATEGORY_SUCCESS,
+
   GET_CATEGORIES_REQUEST,
   GET_CATEGORIES_SUCCESS,
 
   GET_CATEGORY_REQUEST,
   GET_CATEGORY_SUCCESS,
 
-  CREATE_CATEGORY_REQUEST,
-  CREATE_CATEGORY_SUCCESS,
+  UPDATE_CATEGORY_REQUEST,
+  UPDATE_CATEGORY_SUCCESS,
 
   DELETE_CATEGORY_REQUEST,
-  DELETE_CATEGORY_SUCCESS,
-
-  UPDATE_CATEGORY_REQUEST,
-  UPDATE_CATEGORY_SUCCESS
+  DELETE_CATEGORY_SUCCESS
 } from '../constants/Category'
 
 const initialState = {
@@ -22,12 +22,6 @@ const initialState = {
 
 export default function category(state = initialState, action) {
   switch (action.type) {
-    case GET_CATEGORIES_SUCCESS:
-      return { ...state, categories: action.payload }
-
-    case GET_CATEGORY_SUCCESS:
-      return { ...state, category: action.payload}
-
     case CREATE_CATEGORY_REQUEST:
       return {
         categories: [
@@ -36,11 +30,11 @@ export default function category(state = initialState, action) {
         ]
       }
 
-    case DELETE_CATEGORY_SUCCESS:
-      return {
-        ...state,
-        categories: state.categories.filter(category => category._id !== action.payload._id)
-      }
+    case GET_CATEGORIES_SUCCESS:
+      return { ...state, categories: action.payload }
+
+    case GET_CATEGORY_SUCCESS:
+      return { ...state, category: action.payload}
 
     case UPDATE_CATEGORY_SUCCESS:
       return {
@@ -49,6 +43,12 @@ export default function category(state = initialState, action) {
           if (category._id === action.payload._id) return action.payload
           return category
         })
+      }
+
+    case DELETE_CATEGORY_SUCCESS:
+      return {
+        ...state,
+        categories: state.categories.filter(category => category._id !== action.payload._id)
       }
 
     default:
