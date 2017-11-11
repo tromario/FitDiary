@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
+
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as CategoryActions from '../../actions/CategoryActions'
+
 import { NavLink } from 'react-router-dom'
 
-export default class CategoryList extends Component {
+class CategoryListPage extends Component {
   componentWillMount() {
     const { getCategories } = this.props.categoryActions
 
@@ -41,3 +46,17 @@ export default class CategoryList extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    category: state.category
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    categoryActions: bindActionCreators(CategoryActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryListPage)

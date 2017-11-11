@@ -1,6 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-export default class NewCategory extends Component {
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as CategoryActions from '../../actions/CategoryActions'
+
+class NewCategoryPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -40,3 +44,17 @@ export default class NewCategory extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    category: state.category
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    categoryActions: bindActionCreators(CategoryActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewCategoryPage)

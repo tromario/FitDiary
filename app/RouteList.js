@@ -2,14 +2,15 @@ import React, { Component } from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter, Switch, Router, Route } from 'react-router-dom'
 
-import Home from '../components/Home'
-import ProductListPage from './product/ProductListPage'
-import CategoryListPage from './category/CategoryListPage'
-import Meals from '../components/Meals'
-import Profile from '../components/Profile'
+import Home from './components/Home'
+import Meals from './components/Meals'
+import Profile from './components/Profile'
 
-import CategoryPage from './category/CategoryPage'
-import NewCategoryPage from './category/NewCategoryPage'
+import ProductListPage from './components/product/ProductListPage'
+
+import CategoryListPage from './components/category/CategoryListPage'
+import CategoryPage from './components/category/CategoryPage'
+import NewCategoryPage from './components/category/NewCategoryPage'
 
 export default class RouteList extends Component {
   render() {
