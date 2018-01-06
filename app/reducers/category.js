@@ -7,8 +7,9 @@ const initialState = {
 
 export default function category(state = initialState, action) {
   switch (action.type) {
-    case types.CREATE_CATEGORY_REQUEST:
+    case types.CREATE_CATEGORY_SUCCESS:
       return {
+        ...state,
         categories: [
           ...state.categories,
           action.payload
@@ -19,7 +20,7 @@ export default function category(state = initialState, action) {
       return { ...state, categories: action.payload }
 
     case types.GET_CATEGORY_SUCCESS:
-      return { ...state, category: action.payload}
+      return { ...state, category: action.payload }
 
     case types.UPDATE_CATEGORY_SUCCESS:
       return {

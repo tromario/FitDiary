@@ -4,34 +4,19 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as CategoryActions from '../../actions/CategoryActions'
 
+import CategoryForm from './CategoryForm'
+
 class NewCategoryPage extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired
   }
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      name: ''
-    }
-
-    this.handleNameChange = this.handleNameChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  handleNameChange = event => {
-    let value = event.target.value
-    this.setState({name: value})
-  }
-
-  handleSubmit = event => {
-    event.preventDefault()
-
+  handleCreate = values => {
     const { createCategory } = this.props.categoryActions
     const { history } = this.context.router
 
-    let data = {
-      name: this.state.name
+    var data = {
+      name: values.name
     }
 
     createCategory(data)
@@ -44,12 +29,9 @@ class NewCategoryPage extends Component {
     return(
       <div>
         <h3>Добавление категории</h3>
-        <form action="#" method="post" onSubmit={this.handleSubmit}>
-          <label htmlFor="name">Наименование:</label>
-          <input type="text" name="name" id="name" onChange={this.handleNameChange} />
-          <br />
-          <input type="submit" value="Сохранить" />
-        </form>
+        <CategoryForm
+          handleSubmit={this.handleCreate}
+        />
       </div>
     )
   }

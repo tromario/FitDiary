@@ -4,13 +4,15 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as CategoryActions from '../../actions/CategoryActions'
 
+import CategoryForm from './CategoryForm'
+
 class CategoryPage extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired
   }
 
-  constructor(props, context) {
-    super(props, context)
+  constructor(props) {
+    super(props)
     this.state = {
       isEditing: false,
       name: ''
@@ -26,26 +28,20 @@ class CategoryPage extends Component {
   }
 
   setParametersAfterQueryExecuted = () => {
+    // TODO: заменить на promise
     const { category } = this.props.category
 
     this.setState({name: category.name})
   }
 
-  handleNameChange = event => {
-    var value = event.target.value
-    this.setState({name: value})
-  }
-
-  handleSubmit = event => {
-    event.preventDefault()
-
+  handleUpdate = values => {
     const { id } = this.props.match.params
     const { updateCategory } = this.props.categoryActions
     const { history } = this.context.router
 
     var data = {
       id: id,
-      name: this.state.name
+      name: values.name
     }
 
     updateCategory(data)
@@ -66,15 +62,17 @@ class CategoryPage extends Component {
   }
 
   render() {
-    if (this.state.isEditing) {
+    const { category } = this.props.category
+    const { isEditing } = this.state
+
+    if (isEditing) {
       return(
         <div>
-          <form action="#" method="post" onSubmit={this.handleSubmit}>
-            <label htmlFor="name">Наименование:</label>
-            <input type="text" name="name" id="name" value={this.state.name} onChange={this.handleNameChange} />
-            <br />
-            <input type="submit" value="Сохранить" />
-          </form>
+          <h3>Изменение категории</h3>
+          <CategoryForm
+            category={category}
+            handleSubmit={this.handleUpdate}
+          />
         </div>
       )
     }
