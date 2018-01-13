@@ -21,17 +21,14 @@ class CategoryPage extends Component {
 
   componentWillMount() {
     const { id } = this.props.match.params
-    const { category } = this.props.category
     const { getCategory } = this.props.categoryActions
 
-    getCategory(id, this.setParametersAfterQueryExecuted)
-  }
-
-  setParametersAfterQueryExecuted = () => {
-    // TODO: заменить на promise
-    const { category } = this.props.category
-
-    this.setState({name: category.name})
+    getCategory(id).then((result) => {
+      const { category } = this.props.category        
+      this.setState({name: category.name})
+    }).catch(function(err) {
+      console.log(err);
+    })
   }
 
   handleUpdate = values => {

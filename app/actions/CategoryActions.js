@@ -1,5 +1,6 @@
 import * as types from '../constants/Category'
 import CategoryAPI from '../api/CategoryAPI'
+import Promise from 'bluebird'
 
 function createCategoryRequest() {
   return {
@@ -91,15 +92,16 @@ export function getCategories() {
   }
 }
 
-export function getCategory(id, callback) {
+export function getCategory(id) {
   return (dispatch) => {
     dispatch(getCategoryRequest())
 
-    CategoryAPI.getCategory(id).then(category => {
-      dispatch(getCategorySuccess(category))
-      callback()
-    }).catch(error => {
-      console.log(error)
+    return new Promise(function(resolve, reject) {
+      CategoryAPI.getCategory(id).then(category => {        
+        resolve(dispatch(getCategorySuccess(category)));
+      }).catch(error => {
+        reject(error);
+      })
     })
   }
 }
