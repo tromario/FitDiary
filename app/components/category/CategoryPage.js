@@ -58,6 +58,12 @@ class CategoryPage extends Component {
     deleteCategory(id)
   }
 
+  handleBackwardClick = () => {
+    const { history } = this.context.router
+
+    history.push('/categories')
+  }
+
   render() {
     const { category } = this.props.category
     const { isEditing } = this.state
@@ -68,8 +74,10 @@ class CategoryPage extends Component {
           <h3>Изменение категории</h3>
           <CategoryForm
             category={category}
+            handleBackward={this.handleBackwardClick}
             handleSubmit={this.handleUpdate}
           />
+          
         </div>
       )
     }
@@ -79,6 +87,7 @@ class CategoryPage extends Component {
         <h3>Просмотр категории</h3>
         <p>Наименование: {this.state.name}</p>
 
+        <button onClick={this.handleBackwardClick}>Назад</button>{' '}
         <button onClick={this.handleToggleEditClick}>Изменить</button>{' '}
         <button onClick={this.handleDeleteClick}>Удалить</button>
       </div>

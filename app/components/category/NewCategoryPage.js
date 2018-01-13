@@ -25,11 +25,18 @@ class NewCategoryPage extends Component {
     history.push('/categories')
   }
 
+  handleBackwardClick = () => {
+    const { history } = this.context.router
+
+    history.push('/categories')
+  }
+
   render() {
     return(
       <div>
         <h3>Добавление категории</h3>
         <CategoryForm
+          handleBackward={this.handleBackwardClick}
           handleSubmit={this.handleCreate}
         />
       </div>

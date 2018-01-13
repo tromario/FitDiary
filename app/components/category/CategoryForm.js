@@ -35,12 +35,19 @@ export default class CategoryForm extends Component {
     handleSubmit(values)
   }
 
+  handleBackwardClick = () => {
+    const { handleBackward } = this.props;
+
+    handleBackward();
+  }
+
   render() {
     return(
       <form action="#" method="post" onSubmit={this.handleSubmit}>
         <label htmlFor="name">Наименование:</label>
         <input type="text" name="name" id="name" value={this.state.category.name} onChange={this.handleNameChange} />
         <br />
+        <button onClick={this.handleBackwardClick}>Назад</button>{' '}
         <input type="submit" value="Сохранить" />
       </form>
     )
