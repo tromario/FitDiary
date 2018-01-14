@@ -37,12 +37,13 @@ mongoose.Promise = global.Promise
 const url = 'mongodb://localhost:27017/diary'
 // const jsonParser = bodyParser.json()
 
+// todo: вынести в model
 const productSchema = new Schema({
   //_id: { type: Schema.Types.ObjectId, require: false },
   // наименование
   name: { type: String, require: true },
   // // категория
-  // category: { type: Schema.Types.ObjectId, ref: 'Category', require: true },
+  category: { type: Schema.Types.ObjectId, ref: 'Category', require: true },
   // // производитель
   // manufacturer: { type: String, require: true },
   // // белки
@@ -74,8 +75,11 @@ const productSchema = new Schema({
 
 // схема категории продукта: (молочное/злаковое/бобовое)
 var categorySchema = new Schema({
-  _id: { type: Schema.Types.ObjectId, require: true },
+  // _id: { type: Schema.Types.ObjectId, require: true },
   name: { type: String, require: true }
+},
+{
+  versionKey: false
 })
 
 const Product = mongoose.model('Product', productSchema)
@@ -83,16 +87,7 @@ const Category = mongoose.model('Category', categorySchema)
 
 app.get('/api/products', function(req, res) {
   mongoose.connect(url)
-  Product.find({}, function(err, docs) {
-    mongoose.disconnect()
-    if (err) return res.status(400).send()
-    res.json(docs)
-  })
-})
-
-app.get('/api/categories', function(req, res) {
-  mongoose.connect(url)
-  Category.find({}, function(err, docs) {
+  Product.find().populate('category').exec(function(err, docs) {
     mongoose.disconnect()
     if (err) return res.status(400).send()
     res.json(docs)
@@ -108,7 +103,52 @@ app.post('/api/products', function(req, res) {
   console.log(productData)
 
   mongoose.connect(url)
-  product.save()
+  product.save(function(error) {
+    if (!error) {
+      Product
+        .findById(product._id)
+        .populate('category')
+        .exec(function(error, doc) {
+          mongoose.disconnect()
+          res.json(doc)
+        })
+    } else {
+      mongoose.disconnect()
+      res.status(400).send()
+    }
+  })
+})
+
+app.get('/api/categories', function(req, res) {
+  mongoose.connect(url)
+  Category.find({}, function(err, docs) {
+    mongoose.disconnect()
+    if (err) return res.status(400).send()
+    res.json(docs)
+  })
+})
+
+app.get('/api/categories/:id', function(req, res) {
+  var categoryId = req.params.id
+
+  mongoose.connect(url)
+  Category.findById(categoryId, function(err, category) {
+    mongoose.disconnect()
+    if (err) return res.status(400).send()
+    res.json(category)
+  })
+})
+
+app.post('/api/categories', function(req, res) {
+  if (!req.body) return res.status(404).send()
+
+  var categoryData = req.body.data
+  var category = new Category(categoryData)
+
+  console.log(categoryData)
+
+  mongoose.connect(url)
+  category.save()
     .then(function(doc) {
       mongoose.disconnect()
       res.json(doc)
@@ -117,6 +157,55 @@ app.post('/api/products', function(req, res) {
       mongoose.disconnect()
       res.status(400).send()
     })
+})
+
+app.delete('/api/categories/:id', function(req, res) {
+  var id = req.params.id
+
+  console.log(req.params)
+
+  mongoose.connect(url)
+  Category.findByIdAndRemove(id, function(err, doc) {
+    mongoose.disconnect()
+    if (err) return res.status(400).send()
+    res.json(doc)
+  })
+})
+
+// app.delete('/api/categories', function(req, res) {
+//   var id = req.query.id
+//
+//   console.log(req.query)
+//   console.log(req.params)
+//
+//   mongoose.connect(url)
+//   Category.findByIdAndRemove(id, function(err, doc) {
+//     mongoose.disconnect()
+//     if (err) return res.status(400).send()
+//     res.json(doc)
+//   })
+// })
+
+app.put('/api/categories/:id', function(req, res) {
+  if (!req.params) return res.status(404).send()
+
+  var categoryId = req.params.id
+  var categoryData = req.body.data
+
+  mongoose.connect(url)
+
+  Category.findById(categoryId, function(err, category) {
+    category.name = categoryData.name
+    category.save()
+      .then(function(category) {
+        mongoose.disconnect()
+        res.json(category)
+      })
+      .catch(function(err) {
+        mongoose.disconnect()
+        res.status(400).send()
+      })
+  })
 })
 
 /* api ] */
