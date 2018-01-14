@@ -35,7 +35,7 @@ const url = 'mongodb://localhost:27017/diary'
 mongoose.Promise = global.Promise
 mongoose.connect(url)
 
-const routes = require('./server/routes')
+const routes = require('./server/api/v1/routes')
 routes(app)
 
 const server = http.createServer(app);
