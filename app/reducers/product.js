@@ -8,7 +8,7 @@ import {
   DELETE_PRODUCT
 } from '../constants/Product'
 
-import ProductAPI from '../api/ProductAPI'
+import ProductAPI from '../api/v1/ProductAPI'
 
 // const initialState = ProductAPI.all() || {}
 const initialState = {

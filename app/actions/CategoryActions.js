@@ -1,5 +1,5 @@
 import * as types from '../constants/Category'
-import CategoryAPI from '../api/CategoryAPI'
+import CategoryAPI from '../api/v1/CategoryAPI'
 import Promise from 'bluebird'
 
 function createCategoryRequest() {

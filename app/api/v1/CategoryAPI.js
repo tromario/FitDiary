@@ -1,11 +1,12 @@
 import axios from 'axios'
 
-// todo: добавить версию API
+const version = '/api/v1'
+
 export default class CategoryAPI {
   static createCategory(category) {
     var request = {
       method: 'post',
-      url: '/api/categories',
+      url: version + '/categories',
       data: {
         data: category
       }
@@ -21,7 +22,7 @@ export default class CategoryAPI {
   static getCategories() {
     var request = {
       method: 'get',
-      url: '/api/categories'
+      url: version + '/categories'
     }
 
     return axios(request).then(response => {
@@ -34,7 +35,7 @@ export default class CategoryAPI {
   static getCategory(id) {
     var request = {
       method: 'get',
-      url: '/api/categories/' + id
+      url: version + '/categories/' + id
     }
 
     return axios(request).then(response => {
@@ -47,7 +48,7 @@ export default class CategoryAPI {
   static updateCategory(category) {
     var request = {
       method: 'put',
-      url: '/api/categories/' + category.id,
+      url: version + '/categories/' + category.id,
       data: {
         data: category
       }
@@ -63,7 +64,7 @@ export default class CategoryAPI {
   static deleteCategory(id) {
     var request = {
       method: 'delete',
-      url: '/api/categories/' + id
+      url: version + '/categories/' + id
     }
 
     return axios(request).then(response => {
