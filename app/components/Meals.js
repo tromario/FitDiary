@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ProductAPI from '../api/ProductAPI'
+import ProductAPI from '../api/v1/ProductAPI'
 import MealsAPI from '../api/MealsAPI'
 
 export default class Meals extends Component {

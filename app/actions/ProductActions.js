@@ -10,13 +10,15 @@ import {
 
 import axios from 'axios'
 
+const version = '/api/v1'
+
 export function getProducts() {
   return (dispatch) => {
     dispatch({
       type: GET_PRODUCTS_REQUEST
     })
 
-    fetch('/api/products', { method: 'get', contentType: 'application/json' })
+    fetch(version + '/products', { method: 'get', contentType: 'application/json' })
       .then(res => res.json())
       .then(products => dispatch({
         type: GET_PRODUCTS_SUCCESS,
@@ -63,7 +65,7 @@ export function addProduct(product) {
       type: ADD_PRODUCT_REQUEST
     })
 
-    axios.post('/api/products', {
+    axios.post(version + '/products', {
       data: product
     })
     .then(product => dispatch({
