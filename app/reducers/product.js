@@ -1,52 +1,68 @@
-import {
-  GET_PRODUCTS_REQUEST,
-  GET_PRODUCTS_SUCCESS,
+import * as types from '../constants/Product'
 
-  ADD_PRODUCT_REQUEST,
-  ADD_PRODUCT_SUCCESS,
-
-  DELETE_PRODUCT
-} from '../constants/Product'
-
-import ProductAPI from '../api/v1/ProductAPI'
-
-// const initialState = ProductAPI.all() || {}
 const initialState = {
-  products: []
+  products: [],
+  product: null
 }
 
 export default function product(state = initialState, action) {
+  // switch (action.type) {
+  //   case GET_PRODUCTS_REQUEST:
+  //     return { ...state }
+
+  //   case GET_PRODUCTS_SUCCESS:
+  //     return { ...state, products: action.payload }
+
+  //   case ADD_PRODUCT_REQUEST:
+  //     return { ...state }
+
+  //   case ADD_PRODUCT_SUCCESS:
+  //     return {
+  //       products: [
+  //         ...state.products,
+  //         action.payload
+  //       ]
+  //     }
+
+  //   case DELETE_PRODUCT:
+  //     return { ...state, products: state.products.filter(product => product.id !== action.payload) }
+
+  //   default:
+  //     return state;
+  // }
+
   switch (action.type) {
-    case GET_PRODUCTS_REQUEST:
-      return { ...state }
-
-    case GET_PRODUCTS_SUCCESS:
-      return { ...state, products: action.payload }
-
-    case ADD_PRODUCT_REQUEST:
-      return { ...state }
-
-    case ADD_PRODUCT_SUCCESS:
-      // const newId = state.products[state.products.length - 1].id + 1
-      // return {
-      //   products: [
-      //     ...state.products,
-      //     { id: newId, name: action.payload }
-      //   ]
-      // }
-      // return { ...state, products: action.payload }
-
+    case types.CREATE_PRODUCT_SUCCESS:
       return {
+        ...state,
         products: [
           ...state.products,
           action.payload
         ]
       }
 
-    case DELETE_PRODUCT:
-      return { ...state, products: state.products.filter(product => product.id !== action.payload) }
+    case types.GET_PRODUCTS_SUCCESS:
+      return { ...state, products: action.payload }
+
+    case types.GET_PRODUCT_SUCCESS:
+      return { ...state, product: action.payload }
+
+    case types.UPDATE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        products: state.products.map(product => {
+          if (product._id === action.payload._id) return action.payload
+          return product
+        })
+      }
+
+    case types.DELETE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        products: state.products.filter(product => product._id !== action.payload._id)
+      }
 
     default:
-      return state;
+      return state
   }
 }
