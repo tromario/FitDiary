@@ -68,15 +68,23 @@ exports.updateProduct = function(req, res) {
   // mongoose.connect(url)
 
   Product.findById(productId, function(err, product) {
-    product.name = productData.name
-    product.save()
-      .then(function(product) {
-        // mongoose.disconnect()
-        res.json(product)
-      })
-      .catch(function(err) {
+    for (var key in productData) {
+      if (key != 'id') product[key] = productData[key];
+    }
+    
+    product.save(function(error) {
+      if (!error) {
+        Product
+          .findById(product._id)
+          .populate('category')
+          .exec(function(error, doc) {
+            // mongoose.disconnect()
+            res.json(doc)
+          })
+      } else {
         // mongoose.disconnect()
         res.status(400).send()
-      })
+      }
+    })
   })
 }
