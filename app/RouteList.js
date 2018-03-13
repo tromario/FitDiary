@@ -7,6 +7,8 @@ import Meals from './components/Meals'
 import Profile from './components/Profile'
 
 import ProductListPage from './components/product/ProductListPage'
+import ProductPage from './components/product/ProductPage'
+import NewProductPage from './components/product/NewProductPage'
 
 import CategoryListPage from './components/category/CategoryListPage'
 import CategoryPage from './components/category/CategoryPage'
@@ -18,7 +20,10 @@ export default class RouteList extends Component {
       <div>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/products" component={ProductListPage} />
+
+          <Route exact path="/products" component={ProductListPage} />
+          <Route path="/products/new" component={NewProductPage} />
+          <Route path="/products/:id" component={ProductPage} />
 
           <Route exact path="/categories" component={CategoryListPage} />
           <Route path="/categories/new" component={NewCategoryPage} />

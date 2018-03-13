@@ -9,6 +9,8 @@ import Product from './Product'
 import AddProduct from './AddProduct'
 import SearchPlugin from '../../utils/SearchPlugin'
 
+import { NavLink } from 'react-router-dom'
+
 class ProductListPage extends Component {
   constructor(props) {
     super(props);
@@ -42,8 +44,9 @@ class ProductListPage extends Component {
           <td>{item.name}</td>
           <td>{item.category ? item.category.name : ''}</td>
           <td>{item.price}</td>
-          <td><a href="#">Изменить</a></td>
-          <td><a href="#" onClick={()=>deleteProduct(item.id)}>Удалить</a></td>
+          <td><NavLink to={`/products/${item._id}`}>Подробнее</NavLink></td>
+          <td><NavLink to={`/products/${item._id}`}>Изменить</NavLink></td>
+          <td><a href="#" onClick={()=>deleteProduct(item._id)}>Удалить</a></td>
         </tr>
       )
     })
@@ -51,7 +54,7 @@ class ProductListPage extends Component {
     return (
       <div>
         <h2>Продукты</h2>
-        <AddProduct addProduct={addProduct} categories={categories} />
+        <NavLink to={'/products/new'}>Добавить</NavLink>
         <h3>Список продуктов:</h3>
         <SearchPlugin filter={this.filterList} />
         <table>
