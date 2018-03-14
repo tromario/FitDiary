@@ -5,12 +5,13 @@ import { connect } from 'react-redux'
 import * as ProductActions from '../../actions/ProductActions'
 import * as CategoryActions from '../../actions/CategoryActions'
 
-import Product from './Product'
-import AddProduct from './AddProduct'
 import SearchPlugin from '../../utils/SearchPlugin'
 
 import { NavLink } from 'react-router-dom'
 
+// TODO: Срабатывает много лишних запросов
+// После создания продукта вызывается getProducts, а затем createProduct возвращает созданный объект. Лишним является getProducts
+// Запрос getCategories в данном компоненте является лишним
 class ProductListPage extends Component {
   constructor(props) {
     super(props);
