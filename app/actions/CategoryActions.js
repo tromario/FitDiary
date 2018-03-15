@@ -2,72 +2,6 @@ import * as types from '../constants/Category'
 import CategoryAPI from '../api/v1/CategoryAPI'
 import Promise from 'bluebird'
 
-function createCategoryRequest() {
-  return {
-    type: types.CREATE_CATEGORY_REQUEST
-  }
-}
-
-function createCategorySuccess(category) {
-  return {
-    type: types.CREATE_CATEGORY_SUCCESS,
-    payload: category
-  }
-}
-
-function getCategoriesRequest() {
-  return {
-    type: types.GET_CATEGORIES_REQUEST
-  }
-}
-
-function getCategoriesSuccess(categories) {
-  return {
-    type: types.GET_CATEGORIES_SUCCESS,
-    payload: categories
-  }
-}
-
-function getCategoryRequest() {
-  return {
-    type: types.GET_CATEGORY_REQUEST
-  }
-}
-
-function getCategorySuccess(category) {
-  return {
-    type: types.GET_CATEGORY_SUCCESS,
-    payload: category
-  }
-}
-
-function updateCategoryRequest() {
-  return {
-    type: types.UPDATE_CATEGORY_REQUEST
-  }
-}
-
-function updateCategorySuccess(category) {
-  return {
-    type: types.UPDATE_CATEGORY_SUCCESS,
-    payload: category
-  }
-}
-
-function deleteCategoryRequest() {
-  return {
-    type: types.DELETE_CATEGORY_REQUEST
-  }
-}
-
-function deleteCategorySuccess(category) {
-  return {
-    type: types.DELETE_CATEGORY_SUCCESS,
-    payload: category
-  }
-}
-
-
 export function createCategory(category) {
   return (dispatch) => {
     dispatch(createCategoryRequest())
@@ -77,6 +11,19 @@ export function createCategory(category) {
     }).catch(error => {
       console.log(error)
     })
+  }
+
+  function createCategoryRequest() {
+    return {
+      type: types.CREATE_CATEGORY_REQUEST
+    }
+  }
+  
+  function createCategorySuccess(category) {
+    return {
+      type: types.CREATE_CATEGORY_SUCCESS,
+      payload: category
+    }
   }
 }
 
@@ -89,6 +36,19 @@ export function getCategories() {
     }).catch(error => {
       console.log(error)
     })
+  }
+
+  function getCategoriesRequest() {
+    return {
+      type: types.GET_CATEGORIES_REQUEST
+    }
+  }
+  
+  function getCategoriesSuccess(categories) {
+    return {
+      type: types.GET_CATEGORIES_SUCCESS,
+      payload: categories
+    }
   }
 }
 
@@ -104,6 +64,19 @@ export function getCategory(id) {
       })
     })
   }
+
+  function getCategoryRequest() {
+    return {
+      type: types.GET_CATEGORY_REQUEST
+    }
+  }
+  
+  function getCategorySuccess(category) {
+    return {
+      type: types.GET_CATEGORY_SUCCESS,
+      payload: category
+    }
+  }
 }
 
 export function updateCategory(category) {
@@ -116,6 +89,19 @@ export function updateCategory(category) {
       console.log(error)
     })
   }
+
+  function updateCategoryRequest() {
+    return {
+      type: types.UPDATE_CATEGORY_REQUEST
+    }
+  }
+  
+  function updateCategorySuccess(category) {
+    return {
+      type: types.UPDATE_CATEGORY_SUCCESS,
+      payload: category
+    }
+  }
 }
 
 export function deleteCategory(id) {
@@ -127,5 +113,18 @@ export function deleteCategory(id) {
     }).catch(error => {
       console.log(error)
     })
+  }
+
+  function deleteCategoryRequest() {
+    return {
+      type: types.DELETE_CATEGORY_REQUEST
+    }
+  }
+  
+  function deleteCategorySuccess(category) {
+    return {
+      type: types.DELETE_CATEGORY_SUCCESS,
+      payload: category
+    }
   }
 }

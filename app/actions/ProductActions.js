@@ -2,74 +2,6 @@ import * as types from '../constants/Product'
 import ProductAPI from '../api/v1/ProductAPI'
 import Promise from 'bluebird'
 
-const version = '/api/v1'
-
-function createProductRequest() {
-  return {
-    type: types.CREATE_PRODUCT_REQUEST
-  }
-}
-
-function createProductSuccess(product) {
-  return {
-    type: types.CREATE_PRODUCT_SUCCESS,
-    payload: product
-  }
-}
-
-function getProductsRequest() {
-  return {
-    type: types.GET_PRODUCTS_REQUEST
-  }
-}
-
-function getProductsSuccess(categories) {
-  return {
-    type: types.GET_PRODUCTS_SUCCESS,
-    payload: categories
-  }
-}
-
-function getProductRequest() {
-  return {
-    type: types.GET_PRODUCT_REQUEST
-  }
-}
-
-function getProductSuccess(product) {
-  return {
-    type: types.GET_PRODUCT_SUCCESS,
-    payload: product
-  }
-}
-
-function updateProductRequest() {
-  return {
-    type: types.UPDATE_PRODUCT_REQUEST
-  }
-}
-
-function updateProductSuccess(product) {
-  return {
-    type: types.UPDATE_PRODUCT_SUCCESS,
-    payload: product
-  }
-}
-
-function deleteProductRequest() {
-  return {
-    type: types.DELETE_PRODUCT_REQUEST
-  }
-}
-
-function deleteProductSuccess(product) {
-  return {
-    type: types.DELETE_PRODUCT_SUCCESS,
-    payload: product
-  }
-}
-
-
 export function createProduct(product) {
   return (dispatch) => {
     dispatch(createProductRequest())
@@ -79,6 +11,19 @@ export function createProduct(product) {
     }).catch(error => {
       console.log(error)
     })
+  }
+
+  function createProductRequest() {
+    return {
+      type: types.CREATE_PRODUCT_REQUEST
+    }
+  }
+  
+  function createProductSuccess(product) {
+    return {
+      type: types.CREATE_PRODUCT_SUCCESS,
+      payload: product
+    }
   }
 }
 
@@ -91,6 +36,19 @@ export function getProducts() {
     }).catch(error => {
       console.log(error)
     })
+  }
+
+  function getProductsRequest() {
+    return {
+      type: types.GET_PRODUCTS_REQUEST
+    }
+  }
+  
+  function getProductsSuccess(categories) {
+    return {
+      type: types.GET_PRODUCTS_SUCCESS,
+      payload: categories
+    }
   }
 }
 
@@ -106,6 +64,19 @@ export function getProduct(id) {
       })
     })
   }
+
+  function getProductRequest() {
+    return {
+      type: types.GET_PRODUCT_REQUEST
+    }
+  }
+  
+  function getProductSuccess(product) {
+    return {
+      type: types.GET_PRODUCT_SUCCESS,
+      payload: product
+    }
+  }
 }
 
 export function updateProduct(product) {
@@ -117,6 +88,19 @@ export function updateProduct(product) {
     }).catch(error => {
       console.log(error)
     })
+  }
+
+  function updateProductRequest() {
+    return {
+      type: types.UPDATE_PRODUCT_REQUEST
+    }
+  }
+  
+  function updateProductSuccess(product) {
+    return {
+      type: types.UPDATE_PRODUCT_SUCCESS,
+      payload: product
+    }
   }
 }
 
@@ -130,5 +114,17 @@ export function deleteProduct(id) {
       console.log(error)
     })
   }
-}
 
+  function deleteProductRequest() {
+    return {
+      type: types.DELETE_PRODUCT_REQUEST
+    }
+  }
+  
+  function deleteProductSuccess(product) {
+    return {
+      type: types.DELETE_PRODUCT_SUCCESS,
+      payload: product
+    }
+  }
+}
