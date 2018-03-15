@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 
+// TODO: Доработать выбор категории по умолчанию при просмотре продукта
+// TODO: Очищать форму после создания/просмотра продукта
 export default class ProductForm extends Component {
     constructor(props) {
         super(props)
