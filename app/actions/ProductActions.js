@@ -1,88 +1,130 @@
-import {
-  GET_PRODUCTS_REQUEST,
-  GET_PRODUCTS_SUCCESS,
+import * as types from '../constants/Product'
+import ProductAPI from '../api/v1/ProductAPI'
+import Promise from 'bluebird'
 
-  ADD_PRODUCT_REQUEST,
-  ADD_PRODUCT_SUCCESS,
+export function createProduct(product) {
+  return (dispatch) => {
+    dispatch(createProductRequest())
 
-  DELETE_PRODUCT
-} from '../constants/Product'
+    ProductAPI.createProduct(product).then(product => {
+      dispatch(createProductSuccess(product))
+    }).catch(error => {
+      console.log(error)
+    })
+  }
 
-import axios from 'axios'
-
-const version = '/api/v1'
+  function createProductRequest() {
+    return {
+      type: types.CREATE_PRODUCT_REQUEST
+    }
+  }
+  
+  function createProductSuccess(product) {
+    return {
+      type: types.CREATE_PRODUCT_SUCCESS,
+      payload: product
+    }
+  }
+}
 
 export function getProducts() {
   return (dispatch) => {
-    dispatch({
-      type: GET_PRODUCTS_REQUEST
+    dispatch(getProductsRequest())
+
+    ProductAPI.getProducts().then(categories => {
+      dispatch(getProductsSuccess(categories))
+    }).catch(error => {
+      console.log(error)
     })
+  }
 
-    fetch(version + '/products', { method: 'get', contentType: 'application/json' })
-      .then(res => res.json())
-      .then(products => dispatch({
-        type: GET_PRODUCTS_SUCCESS,
-        payload: products
-      }))
-
-    // return fetchGet('/api/products').then(([response, json]) => {
-    //   if (response.status === 200) {
-    //     dispatch({
-    //       type: GET_PRODUCTS_SUCCESS,
-    //       payload: json
-    //     })
-    //   }
-    // })
-
-    // setTimeout(() => {
-    //   dispatch({
-    //     type: GET_PRODUCTS_SUCCESS,
-    //     payload: [
-    //       { id: 1, name: 'Овсянка' },
-    //       { id: 2, name: 'Рис' },
-    //       { id: 3, name: 'Молоко' }
-    //     ]
-    //   })
-    // }, 1000)
-
-    // $.ajax({
-    //   url: '/api/products',
-    //   type: 'get',
-    //   contentType: 'application/json',
-    //   success: function(products) {
-    //     dispatch({
-    //       type: GET_PRODUCTS_SUCCESS,
-    //       payload: products
-    //     })
-    //   }
-    // })
+  function getProductsRequest() {
+    return {
+      type: types.GET_PRODUCTS_REQUEST
+    }
+  }
+  
+  function getProductsSuccess(categories) {
+    return {
+      type: types.GET_PRODUCTS_SUCCESS,
+      payload: categories
+    }
   }
 }
 
-export function addProduct(product) {
+export function getProduct(id) {
   return (dispatch) => {
-    dispatch({
-      type: ADD_PRODUCT_REQUEST
-    })
+    dispatch(getProductRequest())
 
-    axios.post(version + '/products', {
-      data: product
+    return new Promise(function(resolve, reject) {
+      ProductAPI.getProduct(id).then(product => {        
+        resolve(dispatch(getProductSuccess(product)));
+      }).catch(error => {
+        reject(error);
+      })
     })
-    .then(product => dispatch({
-      type: ADD_PRODUCT_SUCCESS,
-      payload: product.data
-    }))
   }
 
-  // return {
-  //   type: ADD_PRODUCT,
-  //   payload: name
-  // }
+  function getProductRequest() {
+    return {
+      type: types.GET_PRODUCT_REQUEST
+    }
+  }
+  
+  function getProductSuccess(product) {
+    return {
+      type: types.GET_PRODUCT_SUCCESS,
+      payload: product
+    }
+  }
+}
+
+export function updateProduct(product) {
+  return (dispatch) => {
+    dispatch(updateProductRequest())
+
+    ProductAPI.updateProduct(product).then(product => {
+      dispatch(updateProductSuccess(product))
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
+  function updateProductRequest() {
+    return {
+      type: types.UPDATE_PRODUCT_REQUEST
+    }
+  }
+  
+  function updateProductSuccess(product) {
+    return {
+      type: types.UPDATE_PRODUCT_SUCCESS,
+      payload: product
+    }
+  }
 }
 
 export function deleteProduct(id) {
-  return {
-    type: DELETE_PRODUCT,
-    payload: id
+  return (dispatch) => {
+    dispatch(deleteProductRequest())
+
+    ProductAPI.deleteProduct(id).then(product => {
+      dispatch(deleteProductSuccess(product))
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
+  function deleteProductRequest() {
+    return {
+      type: types.DELETE_PRODUCT_REQUEST
+    }
+  }
+  
+  function deleteProductSuccess(product) {
+    return {
+      type: types.DELETE_PRODUCT_SUCCESS,
+      payload: product
+    }
   }
 }
