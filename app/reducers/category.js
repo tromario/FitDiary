@@ -1,4 +1,5 @@
 import * as types from '../constants/Category'
+import * as dataTypeHelpers from '../helpers/dataType'
 
 const initialState = {
   categories: [],
@@ -8,6 +9,7 @@ const initialState = {
 export default function category(state = initialState, action) {
   switch (action.type) {
     case types.CREATE_CATEGORY_SUCCESS:
+      // TODO: Не получится создать более одной категории
       return {
         ...state,
         categories: [
@@ -26,6 +28,7 @@ export default function category(state = initialState, action) {
       return {
         ...state,
         categories: state.categories.map(category => {
+          if (dataTypeHelpers.isUndefined(category._id) || dataTypeHelpers.isUndefined(action.payload._id)) return category;
           if (category._id === action.payload._id) return action.payload
           return category
         })
@@ -34,7 +37,10 @@ export default function category(state = initialState, action) {
     case types.DELETE_CATEGORY_SUCCESS:
       return {
         ...state,
-        categories: state.categories.filter(category => category._id !== action.payload._id)
+        categories: state.categories.filter(category => {
+          if (dataTypeHelpers.isUndefined(category._id) || dataTypeHelpers.isUndefined(action.payload._id)) return true;
+          return category._id !== action.payload._id;
+        })
       }
 
     default:
