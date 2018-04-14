@@ -6,7 +6,7 @@ export function createCategory(category) {
   return (dispatch) => {
     dispatch(createCategoryRequest())
 
-    CategoryAPI.createCategory(category).then(category => {
+    return CategoryAPI.createCategory(category).then(category => {
       dispatch(createCategorySuccess(category))
     }).catch(error => {
       console.log(error)
@@ -31,7 +31,7 @@ export function getCategories() {
   return (dispatch) => {
     dispatch(getCategoriesRequest())
 
-    CategoryAPI.getCategories().then(categories => {
+    return CategoryAPI.getCategories().then(categories => {
       dispatch(getCategoriesSuccess(categories))
     }).catch(error => {
       console.log(error)
@@ -83,7 +83,7 @@ export function updateCategory(category) {
   return (dispatch) => {
     dispatch(updateCategoryRequest())
 
-    CategoryAPI.updateCategory(category).then(category => {
+    return CategoryAPI.updateCategory(category).then(category => {
       dispatch(updateCategorySuccess(category))
     }).catch(error => {
       console.log(error)
@@ -108,7 +108,7 @@ export function deleteCategory(id) {
   return (dispatch) => {
     dispatch(deleteCategoryRequest())
 
-    CategoryAPI.deleteCategory(id).then(category => {
+    return CategoryAPI.deleteCategory(id).then(category => {
       dispatch(deleteCategorySuccess(category))
     }).catch(error => {
       console.log(error)
