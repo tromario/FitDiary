@@ -14,6 +14,8 @@ import CategoryListPage from './components/category/CategoryListPage'
 import CategoryPage from './components/category/CategoryPage'
 import NewCategoryPage from './components/category/NewCategoryPage'
 
+import MealListPage from './components/meal/MealListPage'
+
 export default class RouteList extends Component {
   render() {
     return (
@@ -29,7 +31,9 @@ export default class RouteList extends Component {
           <Route path="/categories/new" component={NewCategoryPage} />
           <Route path="/categories/:id" component={CategoryPage} />
 
-          <Route path="/meals" component={Meals} />
+          <Route exact path="/meals" component={MealListPage} />
+          {/* <Route path="/meals" component={Meals} /> */}
+
           <Route path="/profile" component={Profile} />
         </Switch>
       </div>
