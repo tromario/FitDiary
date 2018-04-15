@@ -7,9 +7,9 @@ const mealSchema = new Schema({
   // дата приема
   date: { type: Date },
   // время начала
-  start: { type: String },
+  startTime: { type: String },
   // время окончания
-  end: { type: String },
+  endTime: { type: String },
   // продукты и их количество
   products: [{
     product: { type: Schema.Types.ObjectId, ref: 'Product', require: true },
