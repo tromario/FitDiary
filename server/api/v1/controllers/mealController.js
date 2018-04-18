@@ -10,27 +10,85 @@ exports.getMeals = function(req, res) {
     })
 }
 
+exports.getMeal = function(req, res) {
+    var mealId = req.params.id
+
+    console.log('data from query - getMeal: ', mealId);
+
+    // mongoose.connect(url)
+    Meal.findById(mealId).populate('products.product').exec(function(err, meal) {
+        // mongoose.disconnect()
+        if (err) return res.status(400).send()
+        res.json(meal)
+    })
+}
+
 exports.createMeal = function(req, res) {
     if (!req.body) return res.status(404).send();
-  
+
     var mealData = req.body.data;
     var meal = new Meal(mealData);
-  
+
     console.log('data from query - createMeal: ', mealData);
-  
+
     // mongoose.connect(url)
     meal.save(function(error) {
-      if (!error) {
-        Meal
-          .findById(meal._id)
-          .populate('products.product')
-          .exec(function(error, doc) {
+        if (!error) {
+            Meal
+                .findById(meal._id)
+                .populate('products.product')
+                .exec(function(error, doc) {
+                    // mongoose.disconnect()
+                    res.json(doc);
+                })
+        } else {
             // mongoose.disconnect()
-            res.json(doc);
-          })
-      } else {
-        // mongoose.disconnect()
-        res.status(400).send();
-      }
+            res.status(400).send();
+        }
     })
-  }
+}
+
+exports.deleteMeal = function(req, res) {
+    var id = req.params.id
+
+    console.log('data from query - deleteMeal: ', req.params);
+
+    // mongoose.connect(url)
+    Meal.findByIdAndRemove(id, function(err, meal) {
+        // mongoose.disconnect()
+        if (err) return res.status(400).send()
+        res.json(meal)
+    })
+}
+
+exports.updateMeal = function(req, res) {
+    if (!req.params) return res.status(404).send()
+
+    var mealId = req.params.id
+    var mealData = req.body.data
+
+    console.log('data from query - updateMeal: ', mealData);
+
+    // mongoose.connect(url)
+
+    Meal.findById(mealId, function(err, meal) {
+        for (var key in mealData) {
+            if (key != 'id') meal[key] = mealData[key];
+        }
+
+        meal.save(function(error) {
+            if (!error) {
+                Meal
+                    .findById(meal._id)
+                    .populate('products.product')
+                    .exec(function(error, meal) {
+                        // mongoose.disconnect()
+                        res.json(meal)
+                    })
+            } else {
+                // mongoose.disconnect()
+                res.status(400).send()
+            }
+        })
+    })
+}
