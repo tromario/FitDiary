@@ -9,3 +9,28 @@ exports.getMeals = function(req, res) {
         res.json(docs)
     })
 }
+
+exports.createMeal = function(req, res) {
+    if (!req.body) return res.status(404).send();
+  
+    var mealData = req.body.data;
+    var meal = new Meal(mealData);
+  
+    console.log('data from query - createMeal: ', mealData);
+  
+    // mongoose.connect(url)
+    meal.save(function(error) {
+      if (!error) {
+        Meal
+          .findById(meal._id)
+          .populate('products.product')
+          .exec(function(error, doc) {
+            // mongoose.disconnect()
+            res.json(doc);
+          })
+      } else {
+        // mongoose.disconnect()
+        res.status(400).send();
+      }
+    })
+  }

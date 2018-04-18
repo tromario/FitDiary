@@ -3,4 +3,5 @@ module.exports = function(app) {
 
     app.route('/api/v1/meals')
         .get(mealController.getMeals)
+        .post(mealController.createMeal)
 }

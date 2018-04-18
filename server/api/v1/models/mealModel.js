@@ -5,16 +5,18 @@ const mealSchema = new Schema({
   // наименование
   name: { type: String, require: true },
   // дата приема
-  date: { type: Date },
+  date: { type: Date, default: Date.now },
   // время начала
   startTime: { type: String },
   // время окончания
   endTime: { type: String },
   // продукты и их количество
-  products: [{
-    product: { type: Schema.Types.ObjectId, ref: 'Product', require: true },
-    amount: { type: Number },
-  }],
+  products: {
+    type: [{
+      product: { type: Schema.Types.ObjectId, ref: 'Product', require: true },
+      amount: { type: Number },
+    }]
+  },
 },
 {
   versionKey: false
