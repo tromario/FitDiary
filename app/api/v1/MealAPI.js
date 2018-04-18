@@ -3,6 +3,22 @@ import axios from 'axios'
 const version = '/api/v1'
 
 export default class MealAPI {
+    static createMeal(meal) {
+        var request = {
+          method: 'post',
+          url: version + '/meals',
+          data: {
+            data: meal
+          }
+        }
+    
+        return axios(request).then(response => {
+          return response.data
+        }).catch(error => {
+          return error
+        })
+      }
+
     static getMeals() {
         var request = {
             method: 'get',
