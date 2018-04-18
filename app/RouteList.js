@@ -15,6 +15,7 @@ import CategoryPage from './components/category/CategoryPage'
 import NewCategoryPage from './components/category/NewCategoryPage'
 
 import MealListPage from './components/meal/MealListPage'
+import NewMealPage from './components/meal/NewMealPage'
 
 export default class RouteList extends Component {
   render() {
@@ -32,6 +33,7 @@ export default class RouteList extends Component {
           <Route path="/categories/:id" component={CategoryPage} />
 
           <Route exact path="/meals" component={MealListPage} />
+          <Route path="/meals/new" component={NewMealPage} />
           {/* <Route path="/meals" component={Meals} /> */}
 
           <Route path="/profile" component={Profile} />
