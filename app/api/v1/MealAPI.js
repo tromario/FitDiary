@@ -31,4 +31,46 @@ export default class MealAPI {
             return error
         })
     }
+
+    static getMeal(id) {
+        var request = {
+            method: 'get',
+            url: version + '/meals/' + id
+        }
+
+        return axios(request).then(response => {
+            return response.data
+        }).catch(error => {
+            return error
+        })
+    }
+
+    static updateMeal(meal) {
+        var request = {
+            method: 'put',
+            url: version + '/meals/' + meal.id,
+            data: {
+                data: meal
+            }
+        }
+
+        return axios(request).then(response => {
+            return response.data
+        }).catch(error => {
+            return error
+        })
+    }
+
+    static deleteMeal(id) {
+        var request = {
+            method: 'delete',
+            url: version + '/meals/' + id
+        }
+
+        return axios(request).then(response => {
+            return response.data
+        }).catch(error => {
+            return error
+        })
+    }
 }
