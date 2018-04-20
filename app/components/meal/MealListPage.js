@@ -15,7 +15,7 @@ class MealListPage extends Component {
 
     render() {
         const { meals } = this.props.meal
-        const { getMeals } = this.props.mealActions
+        const { getMeals, deleteMeal, updateMeal } = this.props.mealActions
 
         return (
             <div>
@@ -36,6 +36,8 @@ class MealListPage extends Component {
                                         <tr>
                                             <td>{meal.name}</td>
                                             <td>{meal.startTime} - {meal.endTime}</td>
+                                            <td><NavLink to={`/meals/${meal._id}`}>Изменить</NavLink></td>
+                                            <td><a href="#" onClick={()=>deleteMeal(meal._id)}>Удалить</a></td>
                                         </tr>
                                     </thead>
                                     <thead>
