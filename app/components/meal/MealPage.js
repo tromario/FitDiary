@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as MealActions from '../../actions/MealActions'
+import * as ProductActions from '../../actions/ProductActions'
 
 import MealForm from './MealForm'
 
@@ -43,7 +44,8 @@ class MealPage extends Component {
             date: values.date,
             name: values.name,
             startTime: values.startTime,
-            endTime: values.endTime
+            endTime: values.endTime,
+            products: values.products
         }
 
         updateMeal(data)
@@ -70,8 +72,8 @@ class MealPage extends Component {
     }
 
     render() {
-        const { meal } = this.props.meal
-        const { isEditing } = this.state
+        const { products } = this.props.product
+        const { meal, isEditing } = this.state
 
         if (isEditing) {
             return (
@@ -79,6 +81,7 @@ class MealPage extends Component {
                     <h3>Изменение приема пищи</h3>
                     <MealForm
                         meal={meal}
+                        products={products}
                         handleBackward={this.handleBackwardClick}
                         handleSubmit={this.handleUpdate}
                     />
@@ -97,9 +100,9 @@ class MealPage extends Component {
                 
                 <p>Продукты:</p>
                 {
-                    this.state.meal.products.map(function(product) {
+                    this.state.meal.products.map((product, index) => {
                         return(
-                            <div>
+                            <div key={index}>
                                 {product.product.name} - {product.amount} г.
                             </div>
                         )
@@ -116,13 +119,15 @@ class MealPage extends Component {
 
 function mapStateToProps(state) {
     return {
-        meal: state.meal
+        meal: state.meal,
+        product: state.product
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        mealActions: bindActionCreators(MealActions, dispatch)
+        mealActions: bindActionCreators(MealActions, dispatch),
+        productActions: bindActionCreators(ProductActions, dispatch)
     }
 }
 

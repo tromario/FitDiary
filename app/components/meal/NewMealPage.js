@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as MealActions from '../../actions/MealActions'
+import * as ProductActions from '../../actions/ProductActions'
 
 import MealForm from './MealForm'
 
@@ -19,7 +20,8 @@ class NewMealPage extends Component {
             date: values.date,
             name: values.name,
             startTime: values.startTime,
-            endTime: values.endTime
+            endTime: values.endTime,
+            products: values.products
         }
 
         createMeal(data)
@@ -35,10 +37,13 @@ class NewMealPage extends Component {
     }
 
     render() {
+        const { products } = this.props.product;
+
         return (
             <div>
                 <h3>Добавление приема пищи</h3>
                 <MealForm
+                    products={products}
                     handleBackward={this.handleBackwardClick}
                     handleSubmit={this.handleCreate}
                 />
@@ -49,13 +54,15 @@ class NewMealPage extends Component {
 
 function mapStateToProps(state) {
     return {
-        meal: state.meal
+        meal: state.meal,
+        product: state.product
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        mealActions: bindActionCreators(MealActions, dispatch)
+        mealActions: bindActionCreators(MealActions, dispatch),
+        productActions: bindActionCreators(ProductActions, dispatch)
     }
 }
 

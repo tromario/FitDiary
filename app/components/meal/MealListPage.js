@@ -5,12 +5,15 @@ import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 import * as MealActions from '../../actions/MealActions'
+import * as ProductActions from '../../actions/ProductActions'
 
 class MealListPage extends Component {
     componentWillMount() {
         const { getMeals } = this.props.mealActions
+        const { getProducts } = this.props.productActions
 
         getMeals()
+        getProducts();
     }
 
     render() {
@@ -27,9 +30,9 @@ class MealListPage extends Component {
                 <br />
                 
                 {
-                    meals.map(function(meal) {
+                    meals.map((meal, index) => {
                         return (
-                            <div>
+                            <div key={index}>
                                 {/* <span>{meal.name} | {meal.startTime} - {meal.endTime}</span> */}
                                 <table style={{borderCollapse: 'separate', borderSpacing: '5px'}}>
                                     <thead>
@@ -53,9 +56,9 @@ class MealListPage extends Component {
                                     </thead>
                                     <tbody>
                                         {
-                                            meal.products.map(function(product) {
+                                            meal.products.map((product, index) => {
                                                 return (
-                                                    <tr>
+                                                    <tr key={index}>
                                                         <td>{product.product.name}</td>
                                                         <td>{product.amount}</td>
                                                     </tr>
@@ -87,13 +90,15 @@ class MealListPage extends Component {
 
 function mapStateToProps(state) {
     return {
-        meal: state.meal
+        meal: state.meal,
+        product: state.product
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        mealActions: bindActionCreators(MealActions, dispatch)
+        mealActions: bindActionCreators(MealActions, dispatch),
+        productActions: bindActionCreators(ProductActions, dispatch)
     }
 }
 
