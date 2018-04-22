@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import moment from 'moment';
 
 export default class MealForm extends Component {
     constructor(props) {
@@ -131,19 +132,21 @@ export default class MealForm extends Component {
             )
         });
 
+        let date = moment(meal.date).format('YYYY-MM-DD');
+
         return (
             <form action="#" method="post" onSubmit={this.handleSubmit}>
                 <label htmlFor="name">Дата:</label>
-                <input type="date" name="date" id="date" value={this.state.meal.date} onChange={this.handleDateChange} />
+                <input type="date" name="date" id="date" value={date} onChange={this.handleDateChange} />
                 <br />
                 <label htmlFor="name">Наименование:</label>
-                <input type="text" name="name" id="name" value={this.state.meal.name} onChange={this.handleNameChange} />
+                <input type="text" name="name" id="name" value={meal.name} onChange={this.handleNameChange} />
                 <br />
                 <label htmlFor="name">Время начала:</label>
-                <input type="time" name="startTime" id="startTime" value={this.state.meal.startTime} onChange={this.handleStartTimeChange} />
+                <input type="time" name="startTime" id="startTime" value={meal.startTime} onChange={this.handleStartTimeChange} />
                 <br />
                 <label htmlFor="name">Время окончания:</label>
-                <input type="time" name="endTime" id="endTime" value={this.state.meal.endTime} onChange={this.handleEndTimeChange} />
+                <input type="time" name="endTime" id="endTime" value={meal.endTime} onChange={this.handleEndTimeChange} />
                 <br />
 
                 <label htmlFor="products">Продукты:</label>

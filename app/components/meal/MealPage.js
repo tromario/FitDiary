@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import moment from 'moment'
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -90,17 +91,19 @@ class MealPage extends Component {
             )
         }
 
+        let date = moment(meal.date).locale('ru').format('DD MMMM YYYY');
+
         return (
             <div>
                 <h3>Просмотр приема пищи</h3>
-                <p>Дата: {this.state.meal.date}</p>
-                <p>Наименование: {this.state.meal.name}</p>
-                <p>Время начала: {this.state.meal.startTime}</p>
-                <p>Время окончания: {this.state.meal.endTime}</p>
+                <p>Дата: {date}</p>
+                <p>Наименование: {meal.name}</p>
+                <p>Время начала: {meal.startTime}</p>
+                <p>Время окончания: {meal.endTime}</p>
                 
                 <p>Продукты:</p>
                 {
-                    this.state.meal.products.map((product, index) => {
+                    meal.products.map((product, index) => {
                         return(
                             <div key={index}>
                                 {product.product.name} - {product.amount} г.
