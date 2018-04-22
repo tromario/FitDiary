@@ -1,9 +1,36 @@
 const mongoose = require('mongoose')
 const Meal = require('../models/mealModel')
+const moment = require('moment')
 
 exports.getMeals = function(req, res) {
+    // console.log('data-params from query - getMeals: ', req.params);
+    // console.log('data-query from query - getMeals: ', req.query);
+
+    if (req.query.q) return getRequestedMeals(req, res);
+    return getAllMeals(req, res);
+}
+
+var getAllMeals = function(req, res) {
+    console.log('data-params from query - getAllMeals: ', req.params);
+
     // mongoose.connect(url)
     Meal.find().populate('products.product').exec(function(err, docs) {
+        // mongoose.disconnect()
+        if (err) return res.status(400).send()
+        res.json(docs)
+    })
+}
+
+var getRequestedMeals = function(req, res) {
+    var query = JSON.parse(req.query.q);
+    var date = query.date;
+
+    console.log('data-query from query - getSearchMeals: ', query);
+
+    var today = moment(date).startOf('day')
+    var tomorrow = moment(today).add(1, 'days')
+
+    Meal.find({ date: {$gte: today.toDate(), $lt: tomorrow.toDate()} }).populate('products.product').exec(function(err, docs) {
         // mongoose.disconnect()
         if (err) return res.status(400).send()
         res.json(docs)
