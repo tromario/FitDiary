@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import MealsFilter from './MealsFilter'
+import moment from 'moment'
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -8,12 +10,24 @@ import * as MealActions from '../../actions/MealActions'
 import * as ProductActions from '../../actions/ProductActions'
 
 class MealListPage extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     componentWillMount() {
         const { getMeals } = this.props.mealActions
         const { getProducts } = this.props.productActions
 
         getMeals()
         getProducts();
+    }    
+
+    handleApplyFilter = filter => {
+        this.props.mealActions.getMeals(filter);
+    }
+
+    handleClearFilter = () => {
+        this.props.mealActions.getMeals();
     }
 
     render() {
@@ -23,6 +37,11 @@ class MealListPage extends Component {
         return (
             <div>
                 <h2>Приемы пищи</h2>
+
+                <MealsFilter 
+                    handleApply={this.handleApplyFilter}
+                    handleClear={this.handleClearFilter} />
+
                 <NavLink to={'/meals/new'}>Добавить прием пищи</NavLink>
                 <br />
                 <NavLink to={'/meals/new'}>Добавить продукт в прием пищи</NavLink>

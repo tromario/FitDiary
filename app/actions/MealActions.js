@@ -27,11 +27,11 @@ export function createMeal(meal) {
     }
 }
 
-export function getMeals() {
+export function getMeals(filter) {
     return (dispatch) => {
         dispatch(getMealsRequest())
 
-        return MealAPI.getMeals().then(meals => {
+        return MealAPI.getMeals(filter).then(meals => {
             dispatch(getMealsSuccess(meals))
         }).catch(error => {
             console.log(error)

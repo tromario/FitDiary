@@ -19,10 +19,16 @@ export default class MealAPI {
         })
       }
 
-    static getMeals() {
+    static getMeals(filter) {
+        var url = version + '/meals';
+        
+        if (filter) {
+            url += '?q=' + JSON.stringify(filter);
+        }
+
         var request = {
             method: 'get',
-            url: version + '/meals'
+            url: url
         }
 
         return axios(request).then(response => {
