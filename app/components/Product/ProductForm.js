@@ -10,27 +10,18 @@ export default class ProductForm extends Component {
         }
     }
 
-    handleNameChange = event => {
+    handleTextFieldChange = event => {
+        var name = event.target.name;
         var value = event.target.value;
 
         const { product } = this.state;
-        product.name = value;
+        product[name] = value;
 
         this.setState({
             product: product
         })
-    }
 
-    handlePriceChange = event => {
-        var value = event.target.value;
-        // let value = parseInt(event.target.value)
-
-        const { product } = this.state;
-        product.price = value;
-
-        this.setState({
-            product: product
-        })
+        console.log(product)
     }
 
     handleCategoryChange = event => {
@@ -55,7 +46,7 @@ export default class ProductForm extends Component {
             category: this.state.product.category
         };
 
-        handleSubmit(values);
+        handleSubmit(this.state.product);
     }
 
     handleBackwardClick = () => {
@@ -70,10 +61,34 @@ export default class ProductForm extends Component {
         return (
             <form action="#" method="post" onSubmit={this.handleSubmit}>
                 <label htmlFor="name">Наименование:</label>
-                <input type="text" name="name" id="name" value={this.state.product.name} onChange={this.handleNameChange} />
+                <input type="text" name="name" id="name" value={this.state.product.name} onChange={this.handleTextFieldChange} />
+                <br />
+                <label htmlFor="proteins">Белки:</label>
+                <input type="text" name="proteins" id="proteins" value={this.state.product.proteins} onChange={this.handleTextFieldChange} />
+                <br />
+                <label htmlFor="fats">Жиры:</label>
+                <input type="text" name="fats" id="fats" value={this.state.product.fats} onChange={this.handleTextFieldChange} />
+                <br />
+                <label htmlFor="carbohydrates">Углеводы:</label>
+                <input type="text" name="carbohydrates" id="carbohydrates" value={this.state.product.carbohydrates} onChange={this.handleTextFieldChange} />
+                <br />
+                <label htmlFor="cellulose">Клетчатка:</label>
+                <input type="text" name="cellulose" id="cellulose" value={this.state.product.cellulose} onChange={this.handleTextFieldChange} />
+                <br />
+                <label htmlFor="caloricity">Калорийность:</label>
+                <input type="text" name="caloricity" id="caloricity" value={this.state.product.caloricity} onChange={this.handleTextFieldChange} />
+                <br />
+                <label htmlFor="energy">Энергетичкская ценность:</label>
+                <input type="text" name="energy" id="energy" value={this.state.product.energy} onChange={this.handleTextFieldChange} />
+                <br />
+                <label htmlFor="glycemicIndex">Гликемический индекс:</label>
+                <input type="text" name="glycemicIndex" id="glycemicIndex" value={this.state.product.glycemicIndex} onChange={this.handleTextFieldChange} />
+                <br />
+                <label htmlFor="insulinIndex">Инсулиновый индекс:</label>
+                <input type="text" name="insulinIndex" id="insulinIndex" value={this.state.product.insulinIndex} onChange={this.handleTextFieldChange} />
                 <br />
                 <label htmlFor="count">Цена:</label>
-                <input type="text" name="price" id="price" value={this.state.product.price} onChange={this.handlePriceChange} />
+                <input type="text" name="price" id="price" value={this.state.product.price} onChange={this.handleTextFieldChange} />
                 <br />
                 <label htmlFor="category">Категория:</label>
                 <select name="category" onChange={this.handleCategoryChange}>

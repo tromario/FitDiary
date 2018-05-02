@@ -22,7 +22,7 @@ class NewProductPage extends Component {
             category: values.category
         }
 
-        createProduct(data)
+        createProduct(values)
 
         // todo: подумать, как сделать редирект через dispatch
         history.push('/products')

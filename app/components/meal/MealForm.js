@@ -67,22 +67,45 @@ export default class MealForm extends Component {
     }
 
     handleProductChange = event => {
-        let productId = event.target.value;
-        let name = event.target.name;
-        let index = event.target.getAttribute('data-index');
-        
         const { meal } = this.state;
-        meal.products[index].product = productId;
+
+        let productId = event.target.value;
+        let product = this.props.products.find(product => product._id == productId);
+        let name = event.target.name;
+        let index = event.target.getAttribute('data-index');      
+        let amount = meal.products[index].amount;
+
+        // TODO: Выделить в метод calcNutritionalValue (расчет пищевой ценности)
+        meal.products[index].product = product;
+        meal.products[index].proteins = product.proteins * (amount / 100);
+        meal.products[index].fats = product.fats * (amount / 100);
+        meal.products[index].carbohydrates = product.carbohydrates * (amount / 100);
+        meal.products[index].cellulose = product.cellulose * (amount / 100);
+        meal.products[index].caloricity = product.caloricity * (amount / 100);
+        meal.products[index].energy = product.energy * (amount / 100);
+        meal.products[index].glycemicIndex = product.glycemicIndex * (amount / 100);
+        meal.products[index].insulinIndex = product.insulinIndex * (amount / 100);
 
         this.setState({ meal });
     }
 
     handleAmountChange = event => {
+        const { meal } = this.state;
+
         let amount = event.target.value;
         let index = event.target.getAttribute('data-index');
-        
-        const { meal } = this.state;
+        let product = meal.products[index].product;
+
+        // TODO: Выделить в метод calcNutritionalValue (расчет пищевой ценности)
         meal.products[index].amount = amount;
+        meal.products[index].proteins = product.proteins * (amount / 100);
+        meal.products[index].fats = product.fats * (amount / 100);
+        meal.products[index].carbohydrates = product.carbohydrates * (amount / 100);
+        meal.products[index].cellulose = product.cellulose * (amount / 100);
+        meal.products[index].caloricity = product.caloricity * (amount / 100);
+        meal.products[index].energy = product.energy * (amount / 100);
+        meal.products[index].glycemicIndex = product.glycemicIndex * (amount / 100);
+        meal.products[index].insulinIndex = product.insulinIndex * (amount / 100);
 
         this.setState({ meal });
     }
@@ -123,6 +146,30 @@ export default class MealForm extends Component {
                         <input type="text" name={`products[${index}].amount`} data-index={index} value={meal.products[index].amount} onChange={this.handleAmountChange} />
                     </td>
                     <td>
+                        <input type="text" name={`products[${index}].proteins`} data-index={index} value={meal.products[index].proteins} disabled />
+                    </td>
+                    <td>
+                        <input type="text" name={`products[${index}].fats`} data-index={index} value={meal.products[index].fats} disabled />
+                    </td>
+                    <td>
+                        <input type="text" name={`products[${index}].carbohydrates`} data-index={index} value={meal.products[index].carbohydrates} disabled />
+                    </td>
+                    <td>
+                        <input type="text" name={`products[${index}].cellulose`} data-index={index} value={meal.products[index].cellulose} disabled />
+                    </td>
+                    <td>
+                        <input type="text" name={`products[${index}].caloricity`} data-index={index} value={meal.products[index].caloricity} disabled />
+                    </td>
+                    <td>
+                        <input type="text" name={`products[${index}].energy`} data-index={index} value={meal.products[index].energy} disabled />
+                    </td>
+                    <td>
+                        <input type="text" name={`products[${index}].glycemicIndex`} data-index={index} value={meal.products[index].glycemicIndex} disabled />
+                    </td>
+                    <td>
+                        <input type="text" name={`products[${index}].insulinIndex`} data-index={index} value={meal.products[index].insulinIndex} disabled />
+                    </td>
+                    <td>
                         <button type="button" onClick={() => this.handleRemoveProductClick(index)}>Удалить</button>
                     </td>
                     <td>
@@ -159,6 +206,14 @@ export default class MealForm extends Component {
                             <tr>
                                 <td>Продукт</td>
                                 <td>Количество</td>
+                                <td>Белки</td>
+                                <td>Жиры</td>
+                                <td>Углеводы</td>
+                                <td>Клетчатка</td>
+                                <td>Калорийность</td>
+                                <td>Энергетическая ценность</td>
+                                <td>Гликемический индекс</td>
+                                <td>Инсулиновый индекс</td>
                                 <td colSpan="2">Действие</td>
                             </tr>
                         </thead>

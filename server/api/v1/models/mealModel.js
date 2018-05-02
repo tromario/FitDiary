@@ -6,7 +6,7 @@ function formatDate(date) {
   if (!date) return date;
   return moment(date).format('YYYY-MM-DD');
 }
-
+ 
 const mealSchema = new Schema({
   // наименование
   name: { type: String, require: true },
@@ -21,8 +21,10 @@ const mealSchema = new Schema({
     type: [{
       product: { type: Schema.Types.ObjectId, ref: 'Product', require: true },
       amount: { type: Number },
+      // TODO: Добавить поля с КБЖУ для 1 продукта
     }]
   },
+  // TODO: Добавить поля с КБЖУ для 1 приема пищи
 },
 {
   versionKey: false

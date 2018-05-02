@@ -43,9 +43,7 @@ class ProductPage extends Component {
 
         var data = {
             id: id,
-            name: values.name,
-            price: values.price,
-            category: values.category
+            ...values 
         }
 
         updateProduct(data)
@@ -96,6 +94,14 @@ class ProductPage extends Component {
             <div>
                 <h3>Просмотр категории</h3>
                 <p>Наименование: {this.state.product.name}</p>
+                <p>Белки: {this.state.product.proteins}</p>
+                <p>Жиры: {this.state.product.fats}</p>
+                <p>Углеводы: {this.state.product.carbohydrates}</p>
+                <p>Клетчатка: {this.state.product.cellulose}</p>
+                <p>Калорийность: {this.state.product.caloricity}</p>
+                <p>Энергетическая ценность: {this.state.product.energy}</p>
+                <p>Гликемический индекс: {this.state.product.glycemicIndex}</p>
+                <p>Инсулиновый индекс: {this.state.product.insulinIndex}</p>
                 <p>Цена: {this.state.product.price}</p>
 
                 {/* TODO: Категория может быть пустой */}
