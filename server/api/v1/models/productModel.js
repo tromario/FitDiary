@@ -9,7 +9,8 @@ const productSchema = new Schema({
   category: { type: Schema.Types.ObjectId, ref: 'Category', require: true },
   // // производитель
   // manufacturer: { type: String, require: true },
-  // TODO: Добавить поле с информацией "для скольки грамм расчитаны КБЖУ"
+  // пищевая ценность для веса / размер порции
+  portionSize: { type: Number, default: 100, required: false },
   // // белки
   proteins: { type: Number, default: 0, require: false },
   // // жиры

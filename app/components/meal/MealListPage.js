@@ -34,6 +34,7 @@ class MealListPage extends Component {
         const { meals } = this.props.meal
         const { getMeals, deleteMeal, updateMeal } = this.props.mealActions
 
+        // TODO: Доработать по завершению задачи I-7
         let totalDayAmount = 0;
         let totalDayProtein = 0;
         let totalDayFat = 0;
@@ -41,8 +42,6 @@ class MealListPage extends Component {
         let totalDayCellulose = 0;
         let totalDayCalorie = 0;
         let totalDayEnergy = 0;
-        let totalDayGlycemicIndex = 0;
-        let totalDayInsulinIndex = 0;
 
         return (
             <div>
@@ -67,8 +66,6 @@ class MealListPage extends Component {
                         let totalMealCellulose = 0;
                         let totalMealCalorie = 0;
                         let totalMealEnergy = 0;
-                        let totalMealGlycemicIndex = 0;
-                        let totalMealInsulinIndex = 0;
 
                         return (
                             <div key={index}>
@@ -99,37 +96,26 @@ class MealListPage extends Component {
                                     <tbody>
                                         {
                                             meal.products.map((product, index) => {
-                                                let proteins = product.product.proteins * (product.amount / 100)
-                                                let fats = product.product.fats * (product.amount / 100)
-                                                let carbohydrates = product.product.carbohydrates * (product.amount / 100)
-                                                let cellulose = product.product.cellulose * (product.amount / 100)
-                                                let caloricity = product.product.caloricity * (product.amount / 100)
-                                                let energy = product.product.energy * (product.amount / 100)
-                                                let glycemicIndex = product.product.glycemicIndex * (product.amount / 100)
-                                                let insulinIndex = product.product.insulinIndex * (product.amount / 100)
-
                                                 totalMealAmount += product.amount;
-                                                totalMealProtein += proteins;
-                                                totalMealFat += fats;
-                                                totalMealCarbohydrate += carbohydrates;
-                                                totalMealCellulose += cellulose;
-                                                totalMealCalorie += caloricity;
-                                                totalMealEnergy += energy;
-                                                totalMealGlycemicIndex += glycemicIndex;
-                                                totalMealInsulinIndex += insulinIndex;
+                                                totalMealProtein += product.proteins;
+                                                totalMealFat += product.fats;
+                                                totalMealCarbohydrate += product.carbohydrates;
+                                                totalMealCellulose += product.cellulose;
+                                                totalMealCalorie += product.caloricity;
+                                                totalMealEnergy += product.energy;
 
                                                 return (
                                                     <tr key={index}>
                                                         <td>{product.product.name}</td>
                                                         <td>{product.amount}</td>
-                                                        <td>{proteins}</td>
-                                                        <td>{fats}</td>
-                                                        <td>{carbohydrates}</td>
-                                                        <td>{cellulose}</td>
-                                                        <td>{caloricity}</td>
-                                                        <td>{energy}</td>
-                                                        <td>{glycemicIndex}</td>
-                                                        <td>{insulinIndex}</td>
+                                                        <td>{product.proteins}</td>
+                                                        <td>{product.fats}</td>
+                                                        <td>{product.carbohydrates}</td>
+                                                        <td>{product.cellulose}</td>
+                                                        <td>{product.caloricity}</td>
+                                                        <td>{product.energy}</td>
+                                                        <td>{product.glycemicIndex}</td>
+                                                        <td>{product.insulinIndex}</td>
                                                     </tr>
                                                 )
                                             })                                            
@@ -138,21 +124,22 @@ class MealListPage extends Component {
                                     <tfoot>
                                         <tr>
                                             <td>Итого</td>
-                                            <td>{totalMealAmount}</td>
-                                            <td>{totalMealProtein}</td>
-                                            <td>{totalMealFat}</td>
-                                            <td>{totalMealCarbohydrate}</td>
-                                            <td>{totalMealCellulose}</td>
-                                            <td>{totalMealCalorie}</td>
-                                            <td>{totalMealEnergy}</td>
-                                            <td>{totalMealGlycemicIndex}</td>
-                                            <td>{totalMealInsulinIndex}</td>
+                                            <td>{meal.totalAmount}</td>
+                                            <td>{meal.totalProteins}</td>
+                                            <td>{meal.totalFats}</td>
+                                            <td>{meal.totalCarbohydrates}</td>
+                                            <td>{meal.totalCellulose}</td>
+                                            <td>{meal.totalCaloricity}</td>
+                                            <td>{meal.totalEnergy}</td>
+                                            <td>-</td>
+                                            <td>-</td>
                                         </tr>
                                     </tfoot>
                                 </table>                                
                                 <br />
                                 {
                                     (() => {
+                                        // TODO: Доработать по завершению задачи I-7
                                         totalDayAmount += totalMealAmount;
                                         totalDayProtein += totalMealProtein;
                                         totalDayFat += totalMealFat;
@@ -160,8 +147,6 @@ class MealListPage extends Component {
                                         totalDayCellulose += totalMealCellulose;
                                         totalDayCalorie += totalMealCalorie;
                                         totalDayEnergy += totalMealEnergy;
-                                        totalDayGlycemicIndex += totalMealGlycemicIndex;
-                                        totalDayInsulinIndex += totalMealInsulinIndex;
                                     })()
                                 }
                             </div>
@@ -194,8 +179,8 @@ class MealListPage extends Component {
                             <td>{totalDayCellulose}</td>
                             <td>{totalDayCalorie}</td>
                             <td>{totalDayEnergy}</td>
-                            <td>{totalDayGlycemicIndex}</td>
-                            <td>{totalDayInsulinIndex}</td>
+                            <td>-</td>
+                            <td>-</td>
                         </tr>
                     </tbody>
                 </table>

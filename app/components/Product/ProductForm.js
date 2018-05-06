@@ -60,8 +60,22 @@ export default class ProductForm extends Component {
         
         return (
             <form action="#" method="post" onSubmit={this.handleSubmit}>
+                <label htmlFor="category">Категория:</label>
+                <select name="category" onChange={this.handleCategoryChange}>
+                    {
+                        categories.map(function (item, index) {
+                            return (
+                                <option key={index} value={item._id}>{item.name}</option>
+                            )
+                        })
+                    }
+                </select>
+                <br />
                 <label htmlFor="name">Наименование:</label>
                 <input type="text" name="name" id="name" value={this.state.product.name} onChange={this.handleTextFieldChange} />
+                <br />
+                <label htmlFor="name">Пищевая ценность для веса:</label>
+                <input type="text" name="portionSize" id="portionSize" value={this.state.product.portionSize} onChange={this.handleTextFieldChange} />
                 <br />
                 <label htmlFor="proteins">Белки:</label>
                 <input type="text" name="proteins" id="proteins" value={this.state.product.proteins} onChange={this.handleTextFieldChange} />
@@ -89,17 +103,6 @@ export default class ProductForm extends Component {
                 <br />
                 <label htmlFor="count">Цена:</label>
                 <input type="text" name="price" id="price" value={this.state.product.price} onChange={this.handleTextFieldChange} />
-                <br />
-                <label htmlFor="category">Категория:</label>
-                <select name="category" onChange={this.handleCategoryChange}>
-                    {
-                        categories.map(function (item, index) {
-                            return (
-                                <option key={index} value={item._id}>{item.name}</option>
-                            )
-                        })
-                    }
-                </select>
                 <br />
                 <button onClick={this.handleBackwardClick}>Назад</button>{' '}
                 <input type="submit" value="Сохранить" />

@@ -94,6 +94,7 @@ class ProductPage extends Component {
             <div>
                 <h3>Просмотр категории</h3>
                 <p>Наименование: {this.state.product.name}</p>
+                <p>Пищевая ценность для веса: {this.state.product.portionSize}</p>
                 <p>Белки: {this.state.product.proteins}</p>
                 <p>Жиры: {this.state.product.fats}</p>
                 <p>Углеводы: {this.state.product.carbohydrates}</p>

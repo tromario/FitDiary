@@ -42,11 +42,7 @@ class MealPage extends Component {
 
         var data = {
             id: id,
-            date: values.date,
-            name: values.name,
-            startTime: values.startTime,
-            endTime: values.endTime,
-            products: values.products
+            ...values
         }
 
         updateMeal(data)

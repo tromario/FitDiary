@@ -44,6 +44,7 @@ class ProductListPage extends Component {
         <tr key={index}>
           <td>{item.name}</td>
           <td>{item.category ? item.category.name : ''}</td>
+          <td>{item.portionSize}</td>
           <td>{item.proteins}</td>
           <td>{item.fats}</td>
           <td>{item.carbohydrates}</td>
@@ -71,6 +72,7 @@ class ProductListPage extends Component {
             <tr>
               <th>Наименование</th>
               <th>Категория</th>
+              <th>Пищевая ценность для веса</th>
               <th>Белки</th>
               <th>Жиры</th>
               <th>Углеводы</th>

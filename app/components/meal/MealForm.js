@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import * as MealHelpers from '../../utils/MealHelpers';
 import moment from 'moment';
 
 export default class MealForm extends Component {
@@ -9,38 +10,12 @@ export default class MealForm extends Component {
         }
     }
 
-    handleDateChange = event => {
+    handleFieldChange = event => {
+        let name = event.target.name;
         var value = event.target.value;
 
         const { meal } = this.state;
-        meal.date = value;
-
-        this.setState({ meal });
-    }
-
-    handleNameChange = event => {
-        var value = event.target.value;
-
-        const { meal } = this.state;
-        meal.name = value;
-
-        this.setState({ meal });
-    }
-
-    handleStartTimeChange = event => {
-        var value = event.target.value;
-
-        const { meal } = this.state;
-        meal.startTime = value;
-
-        this.setState({ meal });
-    }
-
-    handleEndTimeChange = event => {
-        var value = event.target.value;
-
-        const { meal } = this.state;
-        meal.endTime = value;
+        meal[name] = value;
 
         this.setState({ meal });
     }
@@ -63,7 +38,9 @@ export default class MealForm extends Component {
         const deleteCountProduct = 1;
 
         meal.products.splice(index, deleteCountProduct);
-        this.setState({ meal });
+        
+        let calcTotalMeal = MealHelpers.calcTotalNutritionalValue(meal);
+        this.setState({ meal: calcTotalMeal });
     }
 
     handleProductChange = event => {
@@ -75,18 +52,8 @@ export default class MealForm extends Component {
         let index = event.target.getAttribute('data-index');      
         let amount = meal.products[index].amount;
 
-        // TODO: Выделить в метод calcNutritionalValue (расчет пищевой ценности)
-        meal.products[index].product = product;
-        meal.products[index].proteins = product.proteins * (amount / 100);
-        meal.products[index].fats = product.fats * (amount / 100);
-        meal.products[index].carbohydrates = product.carbohydrates * (amount / 100);
-        meal.products[index].cellulose = product.cellulose * (amount / 100);
-        meal.products[index].caloricity = product.caloricity * (amount / 100);
-        meal.products[index].energy = product.energy * (amount / 100);
-        meal.products[index].glycemicIndex = product.glycemicIndex * (amount / 100);
-        meal.products[index].insulinIndex = product.insulinIndex * (amount / 100);
-
-        this.setState({ meal });
+        let calcMeal = MealHelpers.calcNutritionalValue(meal, product, amount, index);
+        this.setState({ meal: calcMeal });
     }
 
     handleAmountChange = event => {
@@ -96,18 +63,8 @@ export default class MealForm extends Component {
         let index = event.target.getAttribute('data-index');
         let product = meal.products[index].product;
 
-        // TODO: Выделить в метод calcNutritionalValue (расчет пищевой ценности)
-        meal.products[index].amount = amount;
-        meal.products[index].proteins = product.proteins * (amount / 100);
-        meal.products[index].fats = product.fats * (amount / 100);
-        meal.products[index].carbohydrates = product.carbohydrates * (amount / 100);
-        meal.products[index].cellulose = product.cellulose * (amount / 100);
-        meal.products[index].caloricity = product.caloricity * (amount / 100);
-        meal.products[index].energy = product.energy * (amount / 100);
-        meal.products[index].glycemicIndex = product.glycemicIndex * (amount / 100);
-        meal.products[index].insulinIndex = product.insulinIndex * (amount / 100);
-
-        this.setState({ meal });
+        let calcMeal = MealHelpers.calcNutritionalValue(meal, product, amount, index);
+        this.setState({ meal: calcMeal });
     }
 
     handleSubmit = event => {
@@ -184,16 +141,16 @@ export default class MealForm extends Component {
         return (
             <form action="#" method="post" onSubmit={this.handleSubmit}>
                 <label htmlFor="name">Дата:</label>
-                <input type="date" name="date" id="date" value={date} onChange={this.handleDateChange} />
+                <input type="date" name="date" id="date" value={date} onChange={this.handleFieldChange} />
                 <br />
                 <label htmlFor="name">Наименование:</label>
-                <input type="text" name="name" id="name" value={meal.name} onChange={this.handleNameChange} />
+                <input type="text" name="name" id="name" value={meal.name} onChange={this.handleFieldChange} />
                 <br />
                 <label htmlFor="name">Время начала:</label>
-                <input type="time" name="startTime" id="startTime" value={meal.startTime} onChange={this.handleStartTimeChange} />
+                <input type="time" name="startTime" id="startTime" value={meal.startTime} onChange={this.handleFieldChange} />
                 <br />
                 <label htmlFor="name">Время окончания:</label>
-                <input type="time" name="endTime" id="endTime" value={meal.endTime} onChange={this.handleEndTimeChange} />
+                <input type="time" name="endTime" id="endTime" value={meal.endTime} onChange={this.handleFieldChange} />
                 <br />
 
                 <label htmlFor="products">Продукты:</label>
@@ -220,6 +177,18 @@ export default class MealForm extends Component {
                         <tbody>
                             {tableTemplate}                        
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>Итого</td>
+                                <td>{meal.totalAmount}</td>
+                                <td>{meal.totalProteins}</td>
+                                <td>{meal.totalFats}</td>
+                                <td>{meal.totalCarbohydrates}</td>
+                                <td>{meal.totalCellulose}</td>
+                                <td>{meal.totalCaloricity}</td>
+                                <td>{meal.totalEnergy}</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 )}
 
