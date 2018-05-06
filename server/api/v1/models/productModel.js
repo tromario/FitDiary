@@ -9,28 +9,30 @@ const productSchema = new Schema({
   category: { type: Schema.Types.ObjectId, ref: 'Category', require: true },
   // // производитель
   // manufacturer: { type: String, require: true },
+  // пищевая ценность для веса / размер порции
+  portionSize: { type: Number, default: 100, required: false },
   // // белки
-  // proteins: { type: Number, require: false },
+  proteins: { type: Number, default: 0, require: false },
   // // жиры
-  // fats: { type: Number, require: false },
+  fats: { type: Number, default: 0, require: false },
   // // углеводы
-  // carbohydrates: { type: Number, require: false },
+  carbohydrates: { type: Number, default: 0, require: false },
   // // клетчатка
-  // cellulose: { type: Number, require: false },
+  cellulose: { type: Number, default: 0, require: false },
   // // калорийность
-  // caloricity: { type: Number, require: false },
+  caloricity: { type: Number, default: 0, require: false },
   // // энергетическая ценность
-  // energy_value: { type: Number, require: false },
+  energy: { type: Number, default: 0, require: false },
   // // гликемический индекс
-  // glycemic_index: { type: Number, require: false },
+  glycemicIndex: { type: Number, default: 0, require: false },
   // // инсулиновый индекс
-  // insulin_index: { type: Number, require: false },
+  insulinIndex: { type: Number, default: 0, require: false },
   // // мое мнение (отзыв)
   // my_review: { type: String, require: false },
   // // изображение
   // picture: { type: Buffer, require: false },
   // цена
-  price: { type: Number, require: false }
+  price: { type: Number, default: 0, require: false }
 },
 {
   versionKey: false

@@ -44,7 +44,16 @@ class ProductListPage extends Component {
         <tr key={index}>
           <td>{item.name}</td>
           <td>{item.category ? item.category.name : ''}</td>
-          <td>{item.price}</td>
+          <td>{item.portionSize}</td>
+          <td>{item.proteins}</td>
+          <td>{item.fats}</td>
+          <td>{item.carbohydrates}</td>
+          <td>{item.cellulose}</td>
+          <td>{item.caloricity}</td>
+          <td>{item.energy}</td>
+          <td>{item.glycemicIndex}</td>
+          <td>{item.insulinIndex}</td>
+          <td>{item.price}</td>          
           <td><NavLink to={`/products/${item._id}`}>Подробнее</NavLink></td>
           <td><NavLink to={`/products/${item._id}`}>Изменить</NavLink></td>
           <td><a href="#" onClick={()=>deleteProduct(item._id)}>Удалить</a></td>
@@ -63,6 +72,15 @@ class ProductListPage extends Component {
             <tr>
               <th>Наименование</th>
               <th>Категория</th>
+              <th>Пищевая ценность для веса</th>
+              <th>Белки</th>
+              <th>Жиры</th>
+              <th>Углеводы</th>
+              <th>Клетчатка</th>
+              <th>Калорийность</th>
+              <th>Энергетическая ценность</th>
+              <th>Гликемический индекс</th>
+              <th>Инсулиновый индекс</th>
               <th>Цена</th>
               <th colSpan="2">Действия</th>
             </tr>

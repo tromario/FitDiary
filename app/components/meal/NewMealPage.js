@@ -16,15 +16,7 @@ class NewMealPage extends Component {
         const { createMeal } = this.props.mealActions
         const { history } = this.context.router
 
-        var data = {
-            date: values.date,
-            name: values.name,
-            startTime: values.startTime,
-            endTime: values.endTime,
-            products: values.products
-        }
-
-        createMeal(data)
+        createMeal(values)
 
         // todo: подумать, как сделать редирект через dispatch
         history.push('/meals')
