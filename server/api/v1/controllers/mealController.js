@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Meal = require('../models/mealModel')
+const History = require('../models/historyModel')
 const moment = require('moment')
 
 exports.getMeals = function(req, res) {
@@ -58,21 +59,46 @@ exports.createMeal = function(req, res) {
 
     console.log('data from query - createMeal: ', mealData);
 
-    // mongoose.connect(url)
-    meal.save(function(error) {
-        if (!error) {
-            Meal
-                .findById(meal._id)
-                .populate('products.product')
-                .exec(function(error, doc) {
-                    // mongoose.disconnect()
-                    res.json(doc);
-                })
-        } else {
-            // mongoose.disconnect()
-            res.status(400).send();
-        }
+    var date = meal.date;
+    var today = moment(date).startOf('day');
+    var tomorrow = moment(today).add(1, 'days');
+
+    var getHistory = new Promise(function(resolve, reject) {
+        History
+            .findOne({ date: {$gte: today.toDate(), $lt: tomorrow.toDate()} })
+            .exec(function(err, docs) {
+                if (!err && docs) {
+                    resolve(docs);
+                } else {
+                    var history = new History({ date: date })
+                        .save(function(error) {
+                            if (!error) return resolve(history);
+                            reject(error);
+                        });
+                }
+            })
     })
+
+    getHistory
+        .then(function(history) {
+            meal.history = history.id;
+            meal.save(function(error) {
+                if (!error) {
+                    Meal
+                        .findById(meal._id)
+                        .populate('products.product')
+                        .exec(function(error, doc) {
+                            // mongoose.disconnect()
+                            res.json(doc);
+                        })
+                } else {
+                    // mongoose.disconnect()
+                    res.status(400).send();
+                }
+            })
+        }).catch(function(error) {
+            console.log('error from getHistory: ', error);
+        });
 }
 
 exports.deleteMeal = function(req, res) {
