@@ -31,11 +31,30 @@ var getRequestedMeals = function(req, res) {
     var today = moment(date).startOf('day')
     var tomorrow = moment(today).add(1, 'days')
 
-    Meal.find({ date: {$gte: today.toDate(), $lt: tomorrow.toDate()} }).populate('products.product').exec(function(err, docs) {
-        // mongoose.disconnect()
-        if (err) return res.status(400).send()
-        res.json(docs)
+    var getHistory = new Promise(function(resolve, reject) {
+        History
+            .find({ date: {$gte: today.toDate(), $lt: tomorrow.toDate()} })
+            .exec(function(err, docs) {
+                if (err) return reject(err);
+                resolve(docs);
+            })
     })
+
+    getHistory
+        .then(function(history) {
+            Meal
+                .find({ history: history })
+                .populate('products.product')
+                .populate('history')
+                .exec(function(err, docs) {
+                    // mongoose.disconnect()
+                    if (err) return res.status(400).send()
+                    res.json(docs)
+                })
+        })
+        .catch(function(error) {
+            console.log('error from getHistory: ', error);
+        })    
 }
 
 exports.getMeal = function(req, res) {
@@ -72,8 +91,8 @@ exports.createMeal = function(req, res) {
                 } else {
                     var history = new History({ date: date })
                         .save(function(error) {
-                            if (!error) return resolve(history);
-                            reject(error);
+                            if (error) return reject(error);
+                            resolve(history);
                         });
                 }
             })
