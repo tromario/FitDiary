@@ -16,6 +16,8 @@ const mealSchema = new Schema({
   startTime: { type: String },
   // время окончания
   endTime: { type: String },
+  // история
+  history: { type: Schema.Types.ObjectId, ref: 'History', required: false },
   // продукты и их количество
   products: {
     type: [{
