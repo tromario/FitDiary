@@ -17,9 +17,13 @@ class NewMealPage extends Component {
         const { history } = this.context.router
 
         createMeal(values)
-
-        // todo: подумать, как сделать редирект через dispatch
-        history.push('/meals')
+            .then(result => {
+                // todo: подумать, как сделать редирект через dispatch
+                history.push('/meals')
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     handleBackwardClick = () => {

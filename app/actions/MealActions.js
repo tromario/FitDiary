@@ -6,11 +6,13 @@ export function createMeal(meal) {
     return (dispatch) => {
         dispatch(createMealRequest())
 
-        MealAPI.createMeal(meal).then(meal => {
-            dispatch(createMealSuccess(meal))
-        }).catch(error => {
-            console.log(error)
-        })
+        return new Promise((resolve, reject) => {
+            MealAPI.createMeal(meal).then(meal => {
+                resolve(dispatch(createMealSuccess(meal)));
+            }).catch(error => {
+                reject(error);
+            })
+        });
     }
 
     function createMealRequest() {
