@@ -112,11 +112,13 @@ export function deleteMeal(id) {
     return (dispatch) => {
         dispatch(deleteMealRequest())
 
-        MealAPI.deleteMeal(id).then(meal => {
-            dispatch(deleteMealSuccess(meal))
-        }).catch(error => {
-            console.log(error)
-        })
+        return new Promise((resolve, reject) => {            
+            MealAPI.deleteMeal(id).then(meal => {
+                resolve(dispatch(deleteMealSuccess(meal)));
+            }).catch(error => {
+                reject(error);
+            })
+        });
     }
 
     function deleteMealRequest() {

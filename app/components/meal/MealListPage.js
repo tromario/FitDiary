@@ -23,6 +23,17 @@ class MealListPage extends Component {
         getProducts();
     }    
 
+    deleteMeal = id => {
+        this.props.mealActions.deleteMeal(id)
+            .then(response => {
+                // TODO: Подумать о манипуляции с редьюсером, взамен выполнению запроса
+                this.props.historyActions.getHistories();
+            })
+            .catch(error => {
+                console.log('action "deleteMeal": ', error);
+            });
+    }
+
     handleApplyFilter = filter => {
         this.props.historyActions.getHistories(filter);
     }
@@ -34,7 +45,6 @@ class MealListPage extends Component {
     render() {
         const { meals } = this.props.meal;
         const { histories } = this.props.history;
-        const { deleteMeal } = this.props.mealActions;
 
         return (
             <div>
@@ -68,7 +78,7 @@ class MealListPage extends Component {
                                                             <td>{meal.name}</td>
                                                             <td>{meal.startTime} - {meal.endTime}</td>
                                                             <td><NavLink to={`/meals/${meal._id}`}>Изменить</NavLink></td>
-                                                            <td><a href="#" onClick={()=>deleteMeal(meal._id)}>Удалить</a></td>
+                                                            <td><a href="#" onClick={()=>this.deleteMeal(meal._id)}>Удалить</a></td>
                                                         </tr>
                                                     </thead>
                                                     <thead>
