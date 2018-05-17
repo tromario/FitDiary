@@ -46,9 +46,13 @@ class MealPage extends Component {
         }
 
         updateMeal(data)
-
-        // todo: подумать, как сделать редирект через dispatch
-        history.push('/meals')
+            .then(result => {
+                // todo: подумать, как сделать редирект через dispatch
+                history.push('/meals');
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     handleToggleEditClick = () => {

@@ -1,16 +1,18 @@
 import * as types from '../constants/Meal'
 import MealAPI from '../api/v1/MealAPI'
-import Promise from 'bluebird'
+import Promise, { reject } from 'bluebird'
 
 export function createMeal(meal) {
     return (dispatch) => {
         dispatch(createMealRequest())
 
-        MealAPI.createMeal(meal).then(meal => {
-            dispatch(createMealSuccess(meal))
-        }).catch(error => {
-            console.log(error)
-        })
+        return new Promise((resolve, reject) => {
+            MealAPI.createMeal(meal).then(meal => {
+                resolve(dispatch(createMealSuccess(meal)));
+            }).catch(error => {
+                reject(error);
+            })
+        });
     }
 
     function createMealRequest() {
@@ -83,11 +85,13 @@ export function updateMeal(meal) {
     return (dispatch) => {
         dispatch(updateMealRequest())
 
-        MealAPI.updateMeal(meal).then(meal => {
-            dispatch(updateMealSuccess(meal))
-        }).catch(error => {
-            console.log(error)
-        })
+        return new Promise((resolve, reject) => {
+            MealAPI.updateMeal(meal).then(meal => {
+                resolve(dispatch(updateMealSuccess(meal)));
+            }).catch(error => {
+                reject(error);
+            })
+        });
     }
 
     function updateMealRequest() {
@@ -108,11 +112,13 @@ export function deleteMeal(id) {
     return (dispatch) => {
         dispatch(deleteMealRequest())
 
-        MealAPI.deleteMeal(id).then(meal => {
-            dispatch(deleteMealSuccess(meal))
-        }).catch(error => {
-            console.log(error)
-        })
+        return new Promise((resolve, reject) => {            
+            MealAPI.deleteMeal(id).then(meal => {
+                resolve(dispatch(deleteMealSuccess(meal)));
+            }).catch(error => {
+                reject(error);
+            })
+        });
     }
 
     function deleteMealRequest() {
