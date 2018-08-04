@@ -27,7 +27,6 @@
         "babel-preset-react": "^6.5.0",
         "babel-preset-react-hmre": "^1.1.1",
         "babel-preset-stage-0": "^6.5.0",
-        "bootstrap-loader": "^1.0.9",
         "css-loader": "^0.23.1",
         "debug": "^3.1.0",
         "eslint": "^2.4.0",
