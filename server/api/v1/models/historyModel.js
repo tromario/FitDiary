@@ -1,36 +1,36 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const historySchema = new Schema(
     {
         //_id: { type: Schema.Types.ObjectId, require: false },
         // дата приема
-        date: { type: Date, default: Date.now },
+        date: {type: Date, default: Date.now},
         // приемы пищи
-        meals: [{ type: Schema.Types.ObjectId, ref: 'Meal', required: false }],
+        meals: [{type: Schema.Types.ObjectId, ref: "Meal", required: false}],
         // количество
-        totalAmount: { type: Number, default: 0, required: false },
+        totalAmount: {type: Number, default: 0, required: false},
         // белки
-        totalProteins: { type: Number, default: 0, required: false },
+        totalProteins: {type: Number, default: 0, required: false},
         // жиры
-        totalFats: { type: Number, default: 0, required: false },
+        totalFats: {type: Number, default: 0, required: false},
         // углеводы
-        totalCarbohydrates: { type: Number, default: 0, required: false },
+        totalCarbohydrates: {type: Number, default: 0, required: false},
         // клетчатка
-        totalCellulose: { type: Number, default: 0, required: false },
+        totalCellulose: {type: Number, default: 0, required: false},
         // калорийность
-        totalCaloricity: { type: Number, default: 0, required: false },
+        totalCaloricity: {type: Number, default: 0, required: false},
         // энергетическая ценность
-        totalEnergy: { type: Number, default: 0, required: false }
+        totalEnergy: {type: Number, default: 0, required: false}
     },
     {
         versionKey: false,
-        
+
         // MongoError: Unknown modifier: $pushAll
         // https://medium.com/@stefanledin/how-to-solve-the-unknown-modifier-pushall-error-in-mongoose-d631489f85c0
-        usePushEach: true 
+        usePushEach: true
     }
-)
+);
 
 // TODO: Выяснить, что эффективнее: виртуальный метод или поле в таблице, связанное по id 
 /*
@@ -44,4 +44,4 @@ historySchema.set('toObject', { virtuals: true });
 historySchema.set('toJSON', { virtuals: true });
 */
 
-module.exports = mongoose.model('History', historySchema)
+module.exports = mongoose.model("History", historySchema);
