@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import moment from 'moment';
+import React, {Component} from "react";
+import moment from "moment";
 
 // TODO: Добавить возможность сохранения фильтра
 
@@ -9,41 +9,43 @@ export default class MealsFilter extends Component {
         super(props);
 
         this.state = {
-            filter: { date: new Date() }
+            filter: {date: new Date()}
         };
     }
- 
+
     handleFilterDateChange = event => {
         var value = event.target.value;
 
-        const { filter } = this.state;
+        const {filter} = this.state;
         filter.date = value;
 
-        this.setState({ filter });
-    }
+        this.setState({filter});
+    };
 
     handleApplyClick = () => {
-        const { filter } = this.state;
+        const {filter} = this.state;
         this.props.handleApply(filter);
-    }
+    };
 
     handleClearClick = () => {
         this.props.handleClear();
-    }
+    };
 
     render() {
-        const { filter } = this.state;
-        let date = moment(filter.date).format('YYYY-MM-DD');
+        const {filter} = this.state;
+        let date = moment(filter.date).format("YYYY-MM-DD");
 
         return (
             <div>
-                <label htmlFor="">Фильтр по дате:</label> {' '}
-                <input type="date" name="filter[date]" value={date} onChange={this.handleFilterDateChange} /> {' '}
-                <button type="button" onClick={this.handleApplyClick}>Применить</button> {' '}
+                <label htmlFor="">Фильтр по дате:</label> {" "}
+                <input type="date" name="filter[date]" value={date} onChange={this.handleFilterDateChange}/>
+                {" "}
+                <button type="button" onClick={this.handleApplyClick}>Применить</button>
+                {" "}
                 <button type="button" onClick={this.handleClearClick}>Очистить</button>
 
-                <br />
-                <br />
+                <br/>
+                <br/>
             </div>
         )
     }

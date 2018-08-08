@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import MealsFilter from './MealsFilter'
-import moment from 'moment'
+import React, {Component} from "react";
+import MealsFilter from "./MealsFilter";
+import moment from "moment";
 
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
+import {NavLink} from "react-router-dom";
 
-import * as MealActions from '../../actions/MealActions'
-import * as ProductActions from '../../actions/ProductActions'
-import * as HistoryActions from '../../actions/HistoryActions'
+import * as MealActions from "../../actions/MealActions";
+import * as ProductActions from "../../actions/ProductActions";
+import * as HistoryActions from "../../actions/HistoryActions";
 
 class MealListPage extends Component {
     constructor(props) {
@@ -16,12 +16,12 @@ class MealListPage extends Component {
     }
 
     componentWillMount() {
-        const { getHistories } = this.props.historyActions
-        const { getProducts } = this.props.productActions
+        const {getHistories} = this.props.historyActions;
+        const {getProducts} = this.props.productActions;
 
         getHistories();
         getProducts();
-    }    
+    }
 
     deleteMeal = id => {
         this.props.mealActions.deleteMeal(id)
@@ -30,41 +30,41 @@ class MealListPage extends Component {
                 this.props.historyActions.getHistories();
             })
             .catch(error => {
-                console.log('action "deleteMeal": ', error);
+                console.log("action \"deleteMeal\": ", error);
             });
-    }
+    };
 
     handleApplyFilter = filter => {
         this.props.historyActions.getHistories(filter);
-    }
+    };
 
     handleClearFilter = () => {
         this.props.historyActions.getHistories();
-    }
+    };
 
     render() {
-        const { meals } = this.props.meal;
-        const { histories } = this.props.history;
+        const {meals} = this.props.meal;
+        const {histories} = this.props.history;
 
         return (
             <div>
                 <h2>Приемы пищи</h2>
 
-                <MealsFilter 
+                <MealsFilter
                     handleApply={this.handleApplyFilter}
-                    handleClear={this.handleClearFilter} />
+                    handleClear={this.handleClearFilter}/>
 
-                <NavLink to={'/meals/new'}>Добавить прием пищи</NavLink>
-                <br />
-                <NavLink to={'/meals/new'}>Добавить продукт в прием пищи</NavLink>
-                <br />
-                <br />
+                <NavLink to={"/meals/new"}>Добавить прием пищи</NavLink>
+                <br/>
+                <NavLink to={"/meals/new"}>Добавить продукт в прием пищи</NavLink>
+                <br/>
+                <br/>
 
                 {
                     histories.map((history, index) => {
                         return (
                             <div key={index}>
-                                <p>Прием пищи на {moment(history.date).locale('ru').format('DD MMMM YYYY')}</p>
+                                <p>Прием пищи на {moment(history.date).locale("ru").format("DD MMMM YYYY")}</p>
                                 <p>Количество приемов: {history.meals.length}</p>
 
                                 {
@@ -72,13 +72,15 @@ class MealListPage extends Component {
                                         return (
                                             <div key={index}>
                                                 {/* <span>{meal.name} | {meal.startTime} - {meal.endTime}</span> */}
-                                                <table style={{borderCollapse: 'separate', borderSpacing: '5px'}}>
+                                                <table style={{borderCollapse: "separate", borderSpacing: "5px"}}>
                                                     <thead>
                                                         <tr>
                                                             <td>{meal.name}</td>
                                                             <td>{meal.startTime} - {meal.endTime}</td>
                                                             <td><NavLink to={`/meals/${meal._id}`}>Изменить</NavLink></td>
-                                                            <td><a href="#" onClick={()=>this.deleteMeal(meal._id)}>Удалить</a></td>
+                                                            <td><a href="#"
+                                                                   onClick={() => this.deleteMeal(meal._id)}>Удалить</a>
+                                                            </td>
                                                         </tr>
                                                     </thead>
                                                     <thead>
@@ -112,7 +114,7 @@ class MealListPage extends Component {
                                                                         <td>{product.product.insulinIndex}</td>
                                                                     </tr>
                                                                 )
-                                                            })                                            
+                                                            })
                                                         }
                                                     </tbody>
                                                     <tfoot>
@@ -129,14 +131,14 @@ class MealListPage extends Component {
                                                             <td>-</td>
                                                         </tr>
                                                     </tfoot>
-                                                </table>                                
-                                                <br />                                                
+                                                </table>
+                                                <br/>
                                             </div>
-                                        )
-                                    })                    
+                                        );
+                                    })
                                 }
 
-                                <table style={{borderCollapse: 'separate', borderSpacing: '5px'}}>
+                                <table style={{borderCollapse: "separate", borderSpacing: "5px"}}>
                                     <thead>
                                         <tr>
                                             <th>Продукты</th>
@@ -167,13 +169,13 @@ class MealListPage extends Component {
                                         </tr>
                                     </tbody>
                                 </table>
-                                <hr />
+                                <hr/>
                             </div>
-                        )
+                        );
                     })
                 }
             </div>
-        )
+        );
     }
 }
 
@@ -182,7 +184,7 @@ function mapStateToProps(state) {
         meal: state.meal,
         product: state.product,
         history: state.history
-    }
+    };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -190,7 +192,7 @@ function mapDispatchToProps(dispatch) {
         mealActions: bindActionCreators(MealActions, dispatch),
         productActions: bindActionCreators(ProductActions, dispatch),
         historyActions: bindActionCreators(HistoryActions, dispatch)
-    }
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MealListPage)

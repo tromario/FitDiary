@@ -26,7 +26,7 @@ export function calcTotalNutritionalValue(meal) {
     meal.totalCellulose = 0;
     meal.totalCaloricity = 0;
     meal.totalEnergy = 0;
-    meal.products.map(function(product, index) {
+    meal.products.map(function (product, index) {
         meal.totalAmount += parseFloat(product.amount);
         meal.totalProteins += product.proteins;
         meal.totalFats += product.fats;

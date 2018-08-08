@@ -1,3 +1,4 @@
+// TODO: REMOVE!
 const MealsAPI = {
   meals: [
     { number: 1, products: ['Овсянка', 'Орехи'] },
